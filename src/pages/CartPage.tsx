@@ -1,0 +1,107 @@
+import React from "react";
+import Navbar from "../componenents/Navbar";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../states/store";
+import { removeFromCart } from "../states/reducers/cartSlice";
+
+const CartPage: React.FC = () => {
+  const cart = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
+  // Calculate grand total price
+  const grandTotalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  // Calculate total quantity
+  //const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  
+  //Remove product from Cart
+  const handleRemoveFromCart = (productId: number) => {
+    dispatch(removeFromCart(productId));
+  };
+  return (
+    <div>
+      <Navbar />
+      <div className="container mx-auto py-8">
+        <h1 className="font-bold text-3xl mb-4">Shopping Cart</h1>
+        {cart.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          <>
+            <table className="min-w-full divide-y divide-gray-200 mb-4">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Price
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Image
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Quantity
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Total Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {cart.map((item) => (
+                  <tr key={item.id}>
+                    
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{item.name}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">₹{item.price}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-16 w-16"
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {item.quantity}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        ₹{item.price * item.quantity}
+                      </div>
+                    </td>
+                    <td>
+                      <button onClick={() => handleRemoveFromCart(item.id)} className="bg-gray-200 px-2 py-1 rounded-sm hover:bg-gray-300">
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan={4} className="text-right pr-4 font-semibold">
+                    Grand Total:
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-lg font-semibold">
+                      ₹{grandTotalPrice}
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default CartPage;
