@@ -47,10 +47,10 @@ const CheckoutPage: React.FC = () => {
           <div className="mb-4">
             <label className="block mb-2" htmlFor="address">
               Address:
-              <input
-                type="text"
+              <textarea
                 id="address"
                 name="address"
+                rows={4}
                 className="block px-4 py-2 mt-1 border rounded-md w-full"
               />
             </label>
