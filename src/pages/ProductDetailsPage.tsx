@@ -100,7 +100,7 @@ const ProductDetailsPage: React.FC = () => {
           </div>
         </div>
         {/* Tab buttons */}
-        <div className="flex mt-8">
+        <div className="flex justify-center mt-8">
           <button
             onClick={() => handleTabChange("description")}
             className={`bg-gray-200 text-gray-800 text-xl px-4 py-2 rounded-l-md ${
