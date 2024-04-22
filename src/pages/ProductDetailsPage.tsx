@@ -103,7 +103,7 @@ const ProductDetailsPage: React.FC = () => {
         <div className="flex mt-8">
           <button
             onClick={() => handleTabChange("description")}
-            className={`bg-gray-200 text-gray-800 px-4 py-2 rounded-l-md ${
+            className={`bg-gray-200 text-gray-800 text-xl px-4 py-2 rounded-l-md ${
               activeTab === "description" ? "bg-gray-400 text-black" : ""
             }`}
           >
@@ -111,7 +111,7 @@ const ProductDetailsPage: React.FC = () => {
           </button>
           <button
             onClick={() => handleTabChange("specifications")}
-            className={`bg-gray-200 text-gray-800 px-4 py-2 rounded-r-md ${
+            className={`bg-gray-200 text-gray-800 text-xl px-4 py-2 rounded-r-md ${
               activeTab === "specifications" ? "bg-gray-400 text-black" : ""
             }`}
           >
