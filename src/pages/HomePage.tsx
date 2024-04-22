@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Navbar from "../componenents/Navbar";
@@ -14,11 +13,20 @@ import { addToCart } from "../states/reducers/cartSlice";
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.items); //Accessing cart state
+  const [searchProduct, setSearchProduct] = useState<string>("");
+  //State for search product
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchProduct(e.target.value); //update the search query state
+  };
 
   const handleAddToCart = (product: Product) => {
     dispatch(addToCart(product));
   };
 
+  //Filter popular products based on search product query
+  const filteredProducts = PopularProductsData.filter((Product) =>
+    Product.name.toLowerCase().includes(searchProduct.toLowerCase())
+  );
   // Data for image slider
   const imageSliderImages = ["slider1.jpg", "slider2.jpg", "slider3.jpg"];
 
@@ -31,8 +39,18 @@ const HomePage: React.FC = () => {
       >
         <ImageSlider images={imageSliderImages} />
         <div className="mt-8">
+          {/* Search input field */}
+          <input
+            type="text"
+            placeholder="Search product by name"
+            value={searchProduct}
+            onChange={handleSearchInputChange}
+            className="w-1/2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          ></input>
           <ProductSlider
-            popularProducts={PopularProductsData}
+            popularProducts={
+              searchProduct ? filteredProducts : PopularProductsData
+            }
             onAddToCart={handleAddToCart}
             cart={cart} // Pass the cart state to ProductSlider
           />

@@ -15,6 +15,7 @@ const ProductDetailsPage: React.FC = () => {
   const { id = "" } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [activeTab, setActiveTab] = useState("description");
   //const wishlist = useSelector((state: RootState) => state.wishlist.items);
   const dispatch = useDispatch();
 
@@ -46,6 +47,10 @@ const ProductDetailsPage: React.FC = () => {
       dispatch(addToCart(product)); // Dispatch the addToCart action with the selected product
       alert("Product added to cart!"); // Show an alert or any other UI feedback
     }
+  };
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
   };
 
   if (!product) {
@@ -93,6 +98,44 @@ const ProductDetailsPage: React.FC = () => {
               />
             </div>
           </div>
+        </div>
+        {/* Tab buttons */}
+        <div className="flex mt-8">
+          <button
+            onClick={() => handleTabChange("description")}
+            className={`bg-gray-200 text-gray-800 px-4 py-2 rounded-l-md ${
+              activeTab === "description" ? "bg-gray-400 text-black" : ""
+            }`}
+          >
+            Description
+          </button>
+          <button
+            onClick={() => handleTabChange("specifications")}
+            className={`bg-gray-200 text-gray-800 px-4 py-2 rounded-r-md ${
+              activeTab === "specifications" ? "bg-gray-400 text-black" : ""
+            }`}
+          >
+            Specifications
+          </button>
+        </div>
+        {/* Tab content */}
+        <div className="mt-4">
+          {activeTab === "description" && (
+            <div>
+              <h2 className="text-xl font-semibold mb-2">Description</h2>
+              <p className="text-gray-700">{product.description}</p>
+            </div>
+          )}
+          {activeTab === "specifications" && (
+            <div>
+              <h2 className="text-xl font-semibold mb-2">Specifications</h2>
+              <ul>
+                <li className="text-gray-700">Color:</li>
+                <li className="text-gray-700">Size:</li>
+                <li className="text-gray-700">Weight:</li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </>

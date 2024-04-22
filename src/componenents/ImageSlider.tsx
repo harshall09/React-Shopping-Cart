@@ -27,7 +27,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
             src={image}
             alt={`Slide ${index}`}
             className="w-full"
-            style={{ maxHeight: "375px" }}
+            style={{ maxHeight: "382px" }}
           />
         </div>
       ))}
