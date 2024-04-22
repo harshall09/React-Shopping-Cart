@@ -5,6 +5,7 @@ import AboutPage from "./pages/About";
 import ContactUsPage from "./pages/ContactUs";
 import WishlistPage from "./pages/Wishlist";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   // const cart: Product[] = [];
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />

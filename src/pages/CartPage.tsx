@@ -3,10 +3,12 @@ import Navbar from "../componenents/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../states/store";
 import { removeFromCart } from "../states/reducers/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const CartPage: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // Calculate grand total price
   const grandTotalPrice = cart.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -15,11 +17,16 @@ const CartPage: React.FC = () => {
 
   // Calculate total quantity
   //const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-  
+
   //Remove product from Cart
   const handleRemoveFromCart = (productId: number) => {
     dispatch(removeFromCart(productId));
   };
+   // Handle Proceed to Checkout
+   const handleProceedToCheckout = () => {
+    navigate("/checkout");
+  };
+
   return (
     <div>
       <Navbar />
@@ -52,7 +59,6 @@ const CartPage: React.FC = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {cart.map((item) => (
                   <tr key={item.id}>
-                    
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{item.name}</div>
                     </td>
@@ -77,7 +83,10 @@ const CartPage: React.FC = () => {
                       </div>
                     </td>
                     <td>
-                      <button onClick={() => handleRemoveFromCart(item.id)} className="bg-gray-200 px-2 py-1 rounded-sm hover:bg-gray-300">
+                      <button
+                        onClick={() => handleRemoveFromCart(item.id)}
+                        className="bg-gray-200 px-2 py-1 rounded-sm hover:bg-gray-300"
+                      >
                         Remove
                       </button>
                     </td>
@@ -97,6 +106,13 @@ const CartPage: React.FC = () => {
                 </tr>
               </tfoot>
             </table>
+            {/* Proceed to Checkout Button */}
+            <button
+              onClick={handleProceedToCheckout}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              Proceed to Checkout
+            </button>
           </>
         )}
       </div>
