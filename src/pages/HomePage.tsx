@@ -52,7 +52,7 @@ const HomePage: React.FC = () => {
               searchProduct ? filteredProducts : PopularProductsData
             }
             onAddToCart={handleAddToCart}
-            cart={cart} // Pass the cart state to ProductSlider
+            cart={cart} // Passed the cart state to ProductSlider
           />
         </div>
       </div>

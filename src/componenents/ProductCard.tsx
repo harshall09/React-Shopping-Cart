@@ -11,7 +11,7 @@ import { Product } from "../types";
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart?: (product: Product) => void; // Make onAddToCart optional
+  onAddToCart?: (product: Product) => void; // Made onAddToCart optional
   cart: Product[];
 }
 

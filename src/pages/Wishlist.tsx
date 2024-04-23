@@ -8,7 +8,6 @@ import { removeFromWishlist } from "../states/reducers/wishlistSlice";
 const WishlistPage: React.FC = () => {
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
   const dispatch = useDispatch();
-  
 
   const handleRemoveFromWishlist = (productId: number) => {
     dispatch(removeFromWishlist(productId));
