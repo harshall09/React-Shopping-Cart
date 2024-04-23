@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
             {cartItemCount > 0 && (
               <span className="ml-1 bg-blue-500 text-sm text-white rounded-full px-2">
                 {cartItemCount}
-              </span>  
+              </span>
             )}
           </Link>
           {/* Wishlist icon */}
