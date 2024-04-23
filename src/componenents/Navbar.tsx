@@ -2,8 +2,13 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../states/store";
 
 const Navbar: React.FC = () => {
+  const cartItemCount = useSelector(
+    (state: RootState) => state.cart.items.length
+  );
   return (
     <nav className="bg-gradient-to-r from-purple-700 via-pink-600 to-red-600 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -40,13 +45,18 @@ const Navbar: React.FC = () => {
             className="text-white font-bold mr-4 hover:text-gray-200"
           >
             <FontAwesomeIcon icon={faShoppingCart} />
+            {cartItemCount > 0 && (
+              <span className="ml-1 bg-blue-500 text-sm text-white rounded-full px-2">
+                {cartItemCount}
+              </span>  
+            )}
           </Link>
           {/* Wishlist icon */}
           <Link
             to="/wishlist"
             className="text-white font-bold mr-4 hover:text-gray-200"
           >
-            <FontAwesomeIcon icon={faHeart} />
+            <FontAwesomeIcon icon={faHeart} className="" />
           </Link>
         </div>
       </div>

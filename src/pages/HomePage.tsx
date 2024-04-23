@@ -5,10 +5,10 @@ import Navbar from "../componenents/Navbar";
 import ImageSlider from "../componenents/ImageSlider";
 import ProductSlider from "../componenents/ProductSlider";
 import PopularProductsData from "../data/products.json";
-import { Product } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
 import { addToCart } from "../states/reducers/cartSlice";
+import { Product } from "../types";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
