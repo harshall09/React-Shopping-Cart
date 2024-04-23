@@ -5,6 +5,7 @@ import {
   addToCart,
   increaseQuantity,
   decreaseQuantity,
+  removeFromCart,
 } from "../states/reducers/cartSlice";
 import { RootState } from "../states/store";
 import { Product } from "../types";
@@ -34,6 +35,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleDecrement = () => {
     if (cartItem && cartItem.quantity > 1) {
       dispatch(decreaseQuantity(product.id));
+    } else if (cartItem && cartItem.quantity === 1) {
+      dispatch(removeFromCart(product.id));
     }
   };
 
@@ -54,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </Link>
       <div className="flex justify-between items-center p-4">
         <p className="text-lg font-semibold text-blue-600">₹{product.price}</p>
-        {cartItem ? (
+        {cartItem && cartItem.quantity > 0 ? (
           <div className="flex items-center">
             <button
               className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2 hover:bg-blue-600"
