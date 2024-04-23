@@ -32,7 +32,6 @@ const CheckoutPage: React.FC = () => {
               </label>
             </div>
           </div>
-          {/* Add more fields here */}
           <div className="mb-4">
             <label className="block mb-2" htmlFor="email">
               Email:
