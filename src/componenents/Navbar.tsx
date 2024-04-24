@@ -13,36 +13,40 @@ const Navbar: React.FC = () => {
     <nav className="bg-teal-500 text-black p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center">
-          <img src="/shopify.png" alt="Logo" className="h-10 mr-2" />
+          <img
+            src="/shopify.png"
+            alt="Logo"
+            className="h-10 mr-2 drop-shadow-xl"
+          />
         </Link>
         <div>
           <Link
             to="/"
-            className="text-white font-bold mr-4 hover:text-gray-200"
+            className="text-white font-extrabold mr-4 hover:text-slate-300"
           >
             Home
           </Link>
           <Link
             to="/products"
-            className="text-white font-bold mr-4 hover:text-gray-200"
+            className="text-white font-extrabold mr-4 hover:text-slate-300"
           >
             Products
           </Link>
           <Link
             to="/about"
-            className="text-white font-bold mr-4 hover:text-gray-200"
+            className="text-white font-extrabold mr-4 hover:text-slate-300"
           >
             About Us
           </Link>
           <Link
             to="/contact"
-            className="text-white font-bold mr-4 hover:text-gray-200"
+            className="text-white font-extrabold mr-4 hover:text-slate-300"
           >
             Contact Us
           </Link>
           <Link
             to="/cart"
-            className="text-white font-bold mr-4 hover:text-gray-200"
+            className="text-white font-extrabold mr-4 hover:text-slate-300"
           >
             <FontAwesomeIcon icon={faShoppingCart} />
             {cartItemCount > 0 && (
@@ -54,7 +58,7 @@ const Navbar: React.FC = () => {
           {/* Wishlist icon */}
           <Link
             to="/wishlist"
-            className="text-white font-bold mr-4 hover:text-gray-200"
+            className="text-white font-extrabold mr-4 hover:text-slate-300"
           >
             <FontAwesomeIcon icon={faHeart} className="" />
           </Link>
