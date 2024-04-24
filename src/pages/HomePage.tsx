@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
 import { addToCart } from "../states/reducers/cartSlice";
 import { Product } from "../types";
+import Footer from "../componenents/Footer";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -31,10 +32,10 @@ const HomePage: React.FC = () => {
   const imageSliderImages = ["slider1.jpg", "slider2.jpg", "slider3.jpg"];
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <div
-        className="container mx-auto py-8"
+        className="container mx-auto py-8 flex-grow"
         style={{ width: "90%", margin: "auto" }}
       >
         <ImageSlider images={imageSliderImages} />
@@ -56,6 +57,7 @@ const HomePage: React.FC = () => {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../componenents/Navbar";
+import Footer from "../componenents/Footer.tsx";
 import productsData from "../data/products.json";
 import { useParams, useNavigate } from "react-router-dom";
 import { Product } from "../types";
@@ -58,9 +59,9 @@ const ProductDetailsPage: React.FC = () => {
   }
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="container mx-auto mt-8">
+      <div className="container mx-auto mt-8 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left side: Back button and Product Image */}
           <div className="flex flex-col items-center">
@@ -137,8 +138,9 @@ const ProductDetailsPage: React.FC = () => {
             </div>
           )}
         </div>
+        <Footer/>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../states/store";
 import { removeFromCart } from "../states/reducers/cartSlice";
 import { useNavigate } from "react-router-dom";
+import Footer from "../componenents/Footer";
 
 const CartPage: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart.items);
@@ -28,9 +29,9 @@ const CartPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen"> 
       <Navbar />
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-8 flex-grow">
         <div className="max-w-screen-lg mx-auto">
           <h1 className="font-bold text-3xl mb-4">Shopping Cart</h1>
           {cart.length === 0 ? (
@@ -120,6 +121,7 @@ const CartPage: React.FC = () => {
           )}
         </div>
       </div>
+      <Footer/> 
     </div>
   );
 };
