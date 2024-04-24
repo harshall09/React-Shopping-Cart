@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
     (state: RootState) => state.cart.items.length
   );
   return (
-    <nav className="bg-gradient-to-r from-purple-700 via-pink-600 to-red-600 p-4">
+    <nav className="bg-teal-500 text-black p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center">
           <img src="/shopify.png" alt="Logo" className="h-10 mr-2" />
