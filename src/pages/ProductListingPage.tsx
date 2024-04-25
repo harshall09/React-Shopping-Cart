@@ -25,7 +25,7 @@ const ProductListingPage: React.FC = () => {
     },
     {}
   );
-  console.log("categoryProducts:", categoryProducts);
+  //console.log("categoryProducts:", categoryProducts);
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />

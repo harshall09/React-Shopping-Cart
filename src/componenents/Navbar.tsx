@@ -10,7 +10,9 @@ const Navbar: React.FC = () => {
     (state: RootState) => state.cart.items.length
   );
   return (
-    <nav className="bg-teal-500 text-black p-4">
+    <nav
+      style={{ backgroundColor: "#172a3a", color: "white", padding: "1rem" }}
+    >
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center">
           <img
@@ -22,35 +24,69 @@ const Navbar: React.FC = () => {
         <div>
           <Link
             to="/"
-            className="text-white font-extrabold mr-4 hover:text-slate-300"
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              marginRight: "1rem",
+              textDecoration: "none",
+            }}
           >
             Home
           </Link>
           <Link
             to="/productlisting"
-            className="text-white font-extrabold mr-4 hover:text-slate-300"
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              marginRight: "1rem",
+              textDecoration: "none",
+            }}
           >
             Products
           </Link>
           <Link
             to="/about"
-            className="text-white font-extrabold mr-4 hover:text-slate-300"
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              marginRight: "1rem",
+              textDecoration: "none",
+            }}
           >
             About Us
           </Link>
           <Link
             to="/contact"
-            className="text-white font-extrabold mr-4 hover:text-slate-300"
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              marginRight: "1rem",
+              textDecoration: "none",
+            }}
           >
             Contact Us
           </Link>
           <Link
             to="/cart"
-            className="text-white font-extrabold mr-4 hover:text-slate-300"
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              marginRight: "1rem",
+              textDecoration: "none",
+            }}
           >
             <FontAwesomeIcon icon={faShoppingCart} />
             {cartItemCount > 0 && (
-              <span className="ml-1 bg-blue-500 text-sm text-white rounded-full px-2">
+              <span
+                style={{
+                  marginLeft: "0.5rem",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  fontSize: "0.875rem",
+                  padding: "0.25rem 0.5rem",
+                  borderRadius: "9999px",
+                }}
+              >
                 {cartItemCount}
               </span>
             )}
@@ -58,7 +94,12 @@ const Navbar: React.FC = () => {
           {/* Wishlist icon */}
           <Link
             to="/wishlist"
-            className="text-white font-extrabold mr-4 hover:text-slate-300"
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              marginRight: "1rem",
+              textDecoration: "none",
+            }}
           >
             <FontAwesomeIcon icon={faHeart} className="" />
           </Link>
