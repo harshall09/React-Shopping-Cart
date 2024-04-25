@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../componenents/Navbar";
+import Navbar from "../componenents/Navbar.tsx";
 import Footer from "../componenents/Footer.tsx";
 import productsData from "../data/products.json";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Product } from "../types";
 import { useDispatch } from "react-redux";
-//import { RootState } from "../states/store.tsx";
 import { addToCart } from "../states/reducers/cartSlice.tsx";
 import { addToWishlist } from "../states/reducers/wishlistSlice.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartOutline } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 const ProductDetailsPage: React.FC = () => {
-  const navigate = useNavigate();
   const { id = "" } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeTab, setActiveTab] = useState("description");
-  //const wishlist = useSelector((state: RootState) => state.wishlist.items);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // Find the product with the matching ID from the products data
-    const selectedProduct = productsData.find(
+    const selectedProduct = productsData.flatMap((category) => category.products).find(
       (product) => product.id === parseInt(id)
     );
     if (selectedProduct) {
@@ -38,9 +36,6 @@ const ProductDetailsPage: React.FC = () => {
       alert("Product added to wishlist");
     }
     setIsFavorite(!isFavorite);
-  };
-  const handleBack = () => {
-    navigate("/"); // Navigate to the home page
   };
 
   const handleAddToCart = () => {
@@ -63,26 +58,20 @@ const ProductDetailsPage: React.FC = () => {
       <Navbar />
       <div className="container mx-auto mt-8 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left side: Back button and Product Image */}
+          {/* Product Image */}
           <div className="flex flex-col items-center">
-            <button
-              onClick={handleBack}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md mt-8 hover:bg-blue-600"
-            >
-              Back to Home
-            </button>
             <img
               src={product.image}
               alt={product.name}
-              className="w-full rounded-lg shadow-lg mt-4"
+              className="w-full rounded-lg shadow-lg mb-4"
             />
           </div>
 
-          {/* Right side: Product Information */}
+          {/* Product Information */}
           <div className="flex flex-col justify-center">
-            <h1 className="text-2xl font-semibold mb-4">{product.name}</h1>
+            <h1 className="text-3xl font-semibold mb-4">{product.name}</h1>
             <p className="text-lg mb-4">Price: ₹{product.price.toFixed(2)}</p>
-            <p className="text-gray-700">{product.description}</p>
+            <p className="text-gray-700 mb-4">{product.description}</p>
             <div className="flex items-center mt-4">
               <button
                 className="bg-blue-500 text-white px-5 py-3 rounded-md mr-3 hover:bg-blue-600"
@@ -100,6 +89,7 @@ const ProductDetailsPage: React.FC = () => {
             </div>
           </div>
         </div>
+
         {/* Tab buttons */}
         <div className="flex justify-center mt-8">
           <button
@@ -119,6 +109,7 @@ const ProductDetailsPage: React.FC = () => {
             Specifications
           </button>
         </div>
+
         {/* Tab content */}
         <div className="mt-4">
           {activeTab === "description" && (
@@ -138,7 +129,7 @@ const ProductDetailsPage: React.FC = () => {
             </div>
           )}
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

@@ -1,58 +1,71 @@
 [
   {
-    "id": 1,
-    "name": "Air Conditioners",
-    "price": 24999,
-    "description": "Daikin 0.8 Ton 3 Star, Fixed Speed Split AC",
-    "image": "/products/Air1_.jpg"
+    "category": "Mobiles",
+    "products": [
+      {
+        "id": 2,
+        "name": "iPhone 15",
+        "price": 72999,
+        "description": "Apple iPhone 15 (128 GB) - Black",
+        "image": "/products/mobile1.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Samsung Galaxy M15",
+        "price": 14999,
+        "description": "(Celestial Blue,6GB RAM,128GB Storage,5G)",
+        "image": "/products/mobile2.jpg"
+      },
+      {
+        "id": 6,
+        "name": "realme NARZO",
+        "price": 19999,
+        "description": "realme NARZO 70 Pro 5G (Glass Green, 8GB RAM)",
+        "image": "/products/mobile3.jpg"
+      }
+    ]
   },
   {
-    "id": 2,
-    "name": "iPhone 15",
-    "price": 72999,
-    "description": "Apple iPhone 15 (128 GB) - Black",
-    "image": "/products/mobile1.jpg"
+    "category": "Refrigerators",
+    "products": [
+      {
+        "id": 4,
+        "name": "Samsung Refrigerator",
+        "price": 13999,
+        "description": "183 L, 3 Star, Digital Inverter,Single Door",
+        "image": "/products/refrigerator1.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Samsung Refrigerator",
+        "price": 13999,
+        "description": "183 L, 3 Star, Digital Inverter,Single Door",
+        "image": "/products/refrigerator1.jpg"
+      }
+    ]
   },
   {
-    "id": 3,
-    "name": "Samsung Galaxy M15",
-    "price": 14999,
-    "description": "(Celestial Blue,6GB RAM,128GB Storage,5G)",
-    "image": "/products/mobile2.jpg"
+    "category": "Air Conditioners",
+    "products": [
+      {
+        "id": 1,
+        "name": "Air Conditioners",
+        "price": 24999,
+        "description": "Daikin 0.8 Ton 3 Star, Fixed Speed Split AC",
+        "image": "/products/Air1_.jpg"
+      }
+    ]
   },
   {
-    "id": 4,
-    "name": "Samsung Refrigerator",
-    "price": 13999,
-    "description": "183 L, 3 Star, Digital Inverter,Single Door",
-    "image": "/products/refrigerator1.jpg"
-  },
-  {
-    "id": 5,
-    "name": "Samsung Refrigerator",
-    "price": 13999,
-    "description": "183 L, 3 Star, Digital Inverter,Single Door",
-    "image": "/products/refrigerator1.jpg"
-  },
-  {
-    "id": 6,
-    "name": "realme NARZO",
-    "price": 19999,
-    "description": "realme NARZO 70 Pro 5G (Glass Green, 8GB RAM",
-    "image": "/products/mobile3.jpg"
-  },
-  {
-    "id": 7,
-    "name": "Dell Laptop",
-    "price": 33999,
-    "description": "Dell 15 Laptop, Intel 12th Gen Core i3-1215U Proc/8GB DDR4",
-    "image": "/products/laptop1.jpg"
-  },
-  {
-    "id": 8,
-    "name": "Haier Refrigerator",
-    "price": 15999,
-    "description": "183 L, 3 Star, Digital Inverter,Single Door",
-    "image": "/products/refrigerator2.jpg"
+    "category": "Laptops",
+    "products": [
+      {
+        "id": 7,
+        "name": "Dell Laptop",
+        "price": 33999,
+        "description": "Dell 15 Laptop, Intel 12th Gen Core i3-1215U Proc/8GB DDR4",
+        "image": "/products/laptop1.jpg"
+      }
+    ]
   }
 ]

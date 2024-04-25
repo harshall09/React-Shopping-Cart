@@ -5,6 +5,7 @@ import AboutPage from "./pages/About";
 import ContactUsPage from "./pages/ContactUs";
 import WishlistPage from "./pages/Wishlist";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import ProductListingPage from "./pages/ProductListingPage";
 import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
+        <Route path="/productlisting" element={<ProductListingPage/>} />
       </Routes>
     </Router>
   );

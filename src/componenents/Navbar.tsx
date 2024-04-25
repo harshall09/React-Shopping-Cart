@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
             Home
           </Link>
           <Link
-            to="/products"
+            to="/productlisting"
             className="text-white font-extrabold mr-4 hover:text-slate-300"
           >
             Products

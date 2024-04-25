@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa"; // Import icons from React Icons
 
 const Footer: React.FC = () => {
   return (
@@ -20,26 +21,17 @@ const Footer: React.FC = () => {
             Terms of Service
           </Link>
         </div>
-        <div>
-          <p className="text-white font-extrabold">Follow Us:</p>
+        <div className="flex">
+          <p className="text-white font-extrabold mr-2">Follow Us:  </p>
           <div className="flex items-center">
-            <a
-              href="#"
-              className="text-white font-extrabold mr-4 hover:text-slate-300"
-            >
-              Facebook
+            <a href="#" className="text-white font-extrabold mr-4 hover:text-slate-300">
+              <FaFacebook />
             </a>
-            <a
-              href="#"
-              className="text-white font-extrabold mr-4 hover:text-slate-300"
-            >
-              Twitter
+            <a href="#" className="text-white font-extrabold mr-4 hover:text-slate-300">
+              <FaTwitter />
             </a>
-            <a
-              href="#"
-              className="text-white font-extrabold mr-4 hover:text-slate-300"
-            >
-              Instagram
+            <a href="#" className="text-white font-extrabold mr-4 hover:text-slate-300">
+              <FaInstagram />
             </a>
           </div>
         </div>

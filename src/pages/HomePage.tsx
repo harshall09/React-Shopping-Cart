@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Navbar from "../componenents/Navbar";
+import Footer from "../componenents/Footer";
 import ImageSlider from "../componenents/ImageSlider";
 import ProductSlider from "../componenents/ProductSlider";
-import PopularProductsData from "../data/products.json";
+import ProductsData from "../data/products.json";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
 import { addToCart } from "../states/reducers/cartSlice";
 import { Product } from "../types";
-import Footer from "../componenents/Footer";
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,8 +25,10 @@ const HomePage: React.FC = () => {
   };
 
   //Filter popular products based on search product query
-  const filteredProducts = PopularProductsData.filter((Product) =>
-    Product.name.toLowerCase().includes(searchProduct.toLowerCase())
+  const filteredProducts = ProductsData.flatMap(
+    (category) => category.products
+  ).filter((product) =>
+    product.name.toLowerCase().includes(searchProduct.toLowerCase())
   );
   // Data for image slider
   const imageSliderImages = ["slider1.jpg", "slider2.jpg", "slider3.jpg"];
@@ -50,7 +52,9 @@ const HomePage: React.FC = () => {
           ></input>
           <ProductSlider
             popularProducts={
-              searchProduct ? filteredProducts : PopularProductsData
+              searchProduct
+                ? filteredProducts
+                : ProductsData.flatMap((category) => category.products)
             }
             onAddToCart={handleAddToCart}
             cart={cart} // Passed the cart state to ProductSlider
