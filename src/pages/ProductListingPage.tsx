@@ -3,6 +3,7 @@ import Navbar from "../componenents/Navbar";
 import Footer from "../componenents/Footer";
 import productsData from "../data/products.json";
 import { Product } from "../types";
+import ProductCard from "../componenents/ProductCard";
 
 interface CategoryProducts {
   [key: string]: Product[];
@@ -25,7 +26,7 @@ const ProductListingPage: React.FC = () => {
     },
     {}
   );
-  //console.log("categoryProducts:", categoryProducts);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -45,20 +46,14 @@ const ProductListingPage: React.FC = () => {
           </button>
         ))}
       </div>
-      <div className="flex flex-wrap justify-center mt-8">
-        {selectedCategory ? (
-          categoryProducts[selectedCategory].map((product) => (
-            <div key={product.id} className="m-4">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-64 h-64 object-cover"
-              />
-              <p>{product.name}</p>
-            </div>
-          ))
-        ) : (
-          <p>Please select a category to view products.</p>
+      <div className="flex justify-center items-center mt-8 flex-grow">
+        {!selectedCategory && <p>Please select a category to view products.</p>}
+        {selectedCategory && (
+          <div className="flex flex-wrap justify-center">
+            {categoryProducts[selectedCategory].map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         )}
       </div>
       <Footer />
