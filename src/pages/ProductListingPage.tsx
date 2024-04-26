@@ -14,7 +14,7 @@ const ProductListingPage: React.FC = () => {
 
   const handleCategoryChange = (categoryName: string) => {
     setSelectedCategory(
-      categoryName === selectedCategory ? null : categoryName
+      selectedCategory === categoryName ? null : categoryName
     );
   };
 
@@ -26,6 +26,11 @@ const ProductListingPage: React.FC = () => {
     },
     {}
   );
+
+  // Get products based on selected category or all products if no category is selected
+  const displayProducts: Product[] = selectedCategory
+    ? categoryProducts[selectedCategory]
+    : Object.values(categoryProducts).flat();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -47,14 +52,11 @@ const ProductListingPage: React.FC = () => {
         ))}
       </div>
       <div className="flex justify-center items-center mt-8 flex-grow">
-        {!selectedCategory && <p>Please select a category to view products.</p>}
-        {selectedCategory && (
-          <div className="flex flex-wrap justify-center">
-            {categoryProducts[selectedCategory].map((product) => (
-              <ProductCard key={product.id} product={product} cart={[]} />
-            ))}
-          </div>
-        )}
+        <div className="flex flex-wrap justify-center">
+          {displayProducts.map((product) => (
+            <ProductCard key={product.id} product={product} cart={[]} />
+          ))}
+        </div>
       </div>
       <Footer />
     </div>
