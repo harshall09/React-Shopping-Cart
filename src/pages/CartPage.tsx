@@ -29,11 +29,11 @@ const CartPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen"> 
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="container mx-auto py-8 flex-grow">
         <div className="max-w-screen-lg mx-auto">
-          <h1 className="font-bold text-3xl mb-4">Shopping Cart</h1>
+          <h1 className="font-bold text-3xl mb-4">Your Bag</h1>
           {cart.length === 0 ? (
             <p>Your cart is empty.</p>
           ) : (
@@ -121,7 +121,7 @@ const CartPage: React.FC = () => {
           )}
         </div>
       </div>
-      <Footer/> 
+      <Footer />
     </div>
   );
 };

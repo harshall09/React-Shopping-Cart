@@ -51,7 +51,7 @@ const ProductListingPage: React.FC = () => {
         {selectedCategory && (
           <div className="flex flex-wrap justify-center">
             {categoryProducts[selectedCategory].map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} cart={[]}/>
             ))}
           </div>
         )}
