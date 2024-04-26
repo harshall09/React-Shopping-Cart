@@ -35,7 +35,7 @@ const CartPage: React.FC = () => {
         <div className="max-w-screen-lg mx-auto">
           <h1 className="font-bold text-3xl mb-4">Your Bag</h1>
           {cart.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p>Your Bag is empty.</p>
           ) : (
             <>
               <table className="min-w-full divide-y divide-gray-200 mb-4">
