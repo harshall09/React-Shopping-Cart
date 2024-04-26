@@ -17,7 +17,7 @@ const ProductListingPage: React.FC = () => {
       categoryName === selectedCategory ? null : categoryName
     );
   };
-
+  
   // Convert productsData to the appropriate format
   const categoryProducts: CategoryProducts = productsData.reduce(
     (acc: CategoryProducts, current) => {
