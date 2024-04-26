@@ -22,6 +22,13 @@
         "price": 19999,
         "description": "realme NARZO 70 Pro 5G (Glass Green, 8GB RAM)",
         "image": "/products/mobile3.jpg"
+      },
+      {
+        "id": 6,
+        "name": "realme NARZO",
+        "price": 19999,
+        "description": "realme NARZO 70 Pro 5G (Glass Green, 8GB RAM)",
+        "image": "/products/mobile3.jpg"
       }
     ]
   },
@@ -67,5 +74,10 @@
         "image": "/products/laptop1.jpg"
       }
     ]
+  },
+  {
+    "category":"Television",
+    "products":[]
+    
   }
 ]

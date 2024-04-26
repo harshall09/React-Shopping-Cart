@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../componenents/Navbar.tsx";
-import Footer from "../componenents/Footer.tsx";
+import Navbar from "../componenents/Navbar";
+import Footer from "../componenents/Footer";
 import productsData from "../data/products.json";
 import { useParams } from "react-router-dom";
 import { Product } from "../types";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../states/reducers/cartSlice.tsx";
-import { addToWishlist } from "../states/reducers/wishlistSlice.tsx";
+import { addToCart } from "../states/reducers/cartSlice";
+import { addToWishlist } from "../states/reducers/wishlistSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartOutline } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -20,9 +20,9 @@ const ProductDetailsPage: React.FC = () => {
 
   useEffect(() => {
     // Find the product with the matching ID from the products data
-    const selectedProduct = productsData.flatMap((category) => category.products).find(
-      (product) => product.id === parseInt(id)
-    );
+    const selectedProduct = productsData
+      .flatMap((category) => category.products)
+      .find((product) => product.id === parseInt(id));
     if (selectedProduct) {
       setProduct(selectedProduct);
     } else {
@@ -59,11 +59,11 @@ const ProductDetailsPage: React.FC = () => {
       <div className="container mx-auto mt-8 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Product Image */}
-          <div className="flex flex-col items-center">
+          <div className="flex justify-center">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full rounded-lg shadow-lg mb-4"
+              className="w-full rounded-lg shadow-lg mb-4 max-w-xs"
             />
           </div>
 
@@ -90,47 +90,49 @@ const ProductDetailsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Tab buttons */}
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={() => handleTabChange("description")}
-            className={`bg-gray-200 text-gray-800 text-xl px-4 py-2 rounded-l-md ${
-              activeTab === "description" ? "bg-gray-400 text-black" : ""
-            }`}
-          >
-            Description
-          </button>
-          <button
-            onClick={() => handleTabChange("specifications")}
-            className={`bg-gray-200 text-gray-800 text-xl px-4 py-2 rounded-r-md ${
-              activeTab === "specifications" ? "bg-gray-400 text-black" : ""
-            }`}
-          >
-            Specifications
-          </button>
-        </div>
+        {/* Tab buttons and content */}
+        <div className="container mx-auto">
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => handleTabChange("description")}
+              className={`bg-gray-200 text-gray-800 text-xl px-4 py-2 rounded-l-md ${
+                activeTab === "description" ? "bg-gray-400 text-black" : ""
+              }`}
+            >
+              Description
+            </button>
+            <button
+              onClick={() => handleTabChange("specifications")}
+              className={`bg-gray-200 text-gray-800 text-xl px-4 py-2 rounded-r-md ${
+                activeTab === "specifications" ? "bg-gray-400 text-black" : ""
+              }`}
+            >
+              Specifications
+            </button>
+          </div>
 
-        {/* Tab content */}
-        <div className="mt-4">
-          {activeTab === "description" && (
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Description</h2>
-              <p className="text-gray-700">{product.description}</p>
-            </div>
-          )}
-          {activeTab === "specifications" && (
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Specifications</h2>
-              <ul>
-                <li className="text-gray-700">Color:</li>
-                <li className="text-gray-700">Size:</li>
-                <li className="text-gray-700">Weight:</li>
-              </ul>
-            </div>
-          )}
+          {/* Tab content */}
+          <div className="mt-4 flex justify-center">
+            {activeTab === "description" && (
+              <div>
+                <h2 className="text-xl font-semibold mb-2">Description</h2>
+                <p className="text-gray-700">{product.description}</p>
+              </div>
+            )}
+            {activeTab === "specifications" && (
+              <div>
+                <h2 className="text-xl font-semibold mb-2">Specifications</h2>
+                <ul>
+                  <li className="text-gray-700">Color:</li>
+                  <li className="text-gray-700">Size:</li>
+                  <li className="text-gray-700">Weight:</li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };
