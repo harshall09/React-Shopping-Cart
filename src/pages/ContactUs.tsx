@@ -21,7 +21,7 @@ const ContactUsPage: React.FC = () => {
               Email: <a href="mailto:info@example.com">info@example.com</a>
             </li>
             <li>
-              Address: 123 Main Street, City, Country - 12345
+              Address: 123 Main Street, CG Road, Ahmedabad, India - 12345
             </li>
           </ul>
           <p className="text-lg">

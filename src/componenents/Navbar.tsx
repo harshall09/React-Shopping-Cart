@@ -12,98 +12,61 @@ const Navbar: React.FC = () => {
     0
   );
   return (
-    <nav
-      style={{ backgroundColor: "#172a3a", color: "white", padding: "1rem" }}
-    >
+    <nav style={{ backgroundColor: "#172a3a", color: "white", padding: "1rem" }}>
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center">
-          <img
-            src="/shopify.png"
-            alt="Logo"
-            className="h-10 mr-2 drop-shadow-xl"
-          />
+          <img src="/shopify.png" alt="Logo" className="h-10 mr-2 drop-shadow-xl" />
         </Link>
-        <div>
+        <div className="flex items-center">
           <Link
             to="/"
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              marginRight: "1rem",
-              textDecoration: "none",
-            }}
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
           >
             Home
           </Link>
           <Link
             to="/productlisting"
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              marginRight: "1rem",
-              textDecoration: "none",
-            }}
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
           >
             Products
           </Link>
           <Link
             to="/about"
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              marginRight: "1rem",
-              textDecoration: "none",
-            }}
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
           >
             About Us
           </Link>
           <Link
             to="/contact"
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              marginRight: "1rem",
-              textDecoration: "none",
-            }}
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
           >
             Contact Us
           </Link>
           <Link
             to="/cart"
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              marginRight: "1rem",
-              textDecoration: "none",
-            }}
+            className="relative text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
           >
             <FontAwesomeIcon icon={faShoppingCart} />
             {cartItemCount > 0 && (
               <span
-                style={{
-                  marginLeft: "0.5rem",
-                  backgroundColor: "#007bff",
-                  color: "white",
-                  fontSize: "0.875rem",
-                  padding: "0.25rem 0.5rem",
-                  borderRadius: "9999px",
-                }}
+                className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-2 py-1 rounded-full text-xs"
+                style={{ fontSize: "0.70rem" }}
               >
                 {cartItemCount}
               </span>
             )}
           </Link>
-          {/* Wishlist icon */}
           <Link
             to="/wishlist"
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              marginRight: "1rem",
-              textDecoration: "none",
-            }}
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
           >
-            <FontAwesomeIcon icon={faHeart} className="" />
+            <FontAwesomeIcon icon={faHeart} />
           </Link>
         </div>
       </div>
