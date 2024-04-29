@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="h-64 w-full object-cover hover:scale-125"
+          className="h-64 w-full object-cover hover:scale-75"
         />
         <div className="p-4">
           <h2 className="text-md font-semibold text-gray-800 mb-2">
