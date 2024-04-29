@@ -76,8 +76,15 @@
     ]
   },
   {
-    "category":"Television",
-    "products":[]
-    
+    "category": "Television",
+    "products": [
+      {
+        "id": 9,
+        "name": "Panasonic TV",
+        "price": 49999,
+        "description": "Panasonic 55' TV",
+        "image": "/products/tv1.jpg"
+      }
+    ]
   }
 ]

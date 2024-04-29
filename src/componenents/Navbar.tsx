@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../states/store";
 
 const Navbar: React.FC = () => {
-  const cartItemCount = useSelector(
-    (state: RootState) => state.cart.items.length
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartItemCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
   );
   return (
     <nav
