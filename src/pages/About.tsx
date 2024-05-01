@@ -7,7 +7,7 @@ const AboutPage: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="container mx-auto py-8 flex-grow">
-        <div className="max-w-screen-lg mx-auto">
+        <div className="max-w-screen-lg mx-auto" style={{ width: "90%", margin: "auto" }}>
           <h1 className="text-3xl font-semibold mb-4">About Us</h1>
           <p className="text-lg mb-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis

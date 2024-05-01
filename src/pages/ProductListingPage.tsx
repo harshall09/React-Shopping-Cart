@@ -35,7 +35,7 @@ const ProductListingPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="px-4 py-2 flex justify-center space-x-4 flex-grow">
+      <div className="px-4 py-2 flex justify-center space-x-4 flex-wrap">
         <span className="mx-3 ml-5 font-medium"> Categories: </span>
         {Object.keys(categoryProducts).map((categoryName) => (
           <button
@@ -45,7 +45,7 @@ const ProductListingPage: React.FC = () => {
               selectedCategory === categoryName
                 ? "border-blue-500 bg-blue-500 text-white"
                 : "border-gray-500 bg-white text-gray-900 hover:bg-gray-200"
-            }`}
+            } sm:mr-2 sm:mb-2 mb-2`}
           >
             {categoryName}
           </button>
@@ -56,7 +56,7 @@ const ProductListingPage: React.FC = () => {
             selectedCategory === null
               ? "border-blue-500 bg-blue-500 text-white"
               : "border-gray-500 bg-white text-gray-900 hover:bg-gray-200"
-          }`}
+          } sm:mb-2 mb-2`}
         >
           All
         </button>

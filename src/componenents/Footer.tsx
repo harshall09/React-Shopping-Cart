@@ -10,11 +10,15 @@ const Footer: React.FC = () => {
     >
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <p style={{ color: "#333", fontWeight: "bold", marginRight: "1rem" }}>
+          <p
+            className="font-bold sm:text-sm"
+            style={{ color: "#333", fontWeight: "bold", marginRight: "1rem" }}
+          >
             &copy; 2024 Shopping Cart
           </p>
           <Link
             to="/privacy-policy"
+            className="font-bold sm:text-sm"
             style={{
               color: "#333",
               fontWeight: "bold",
@@ -26,6 +30,7 @@ const Footer: React.FC = () => {
           </Link>
           <Link
             to="/terms-of-service"
+            className="font-bold sm:text-sm"
             style={{
               color: "#333",
               fontWeight: "bold",
@@ -33,16 +38,21 @@ const Footer: React.FC = () => {
               textDecoration: "none",
             }}
           >
-            Terms of Service
+            Terms of Services
           </Link>
         </div>
-        <div className="flex">
-          <p style={{ color: "#333", fontWeight: "bold", marginRight: "1rem" }}>
+        {/* Show social media icons only for screens larger than small (sm) */}
+        <div className="hidden sm:flex">
+          <p
+            className="font-bold sm:text-sm"
+            style={{ color: "#333", fontWeight: "bold", marginRight: "1rem" }}
+          >
             Follow Us:{" "}
           </p>
           <div className="flex items-center">
             <a
               href="#"
+              className="font-bold sm:text-sm"
               style={{
                 color: "#333",
                 fontWeight: "bold",
@@ -54,6 +64,7 @@ const Footer: React.FC = () => {
             </a>
             <a
               href="#"
+              className="font-bold sm:text-sm"
               style={{
                 color: "#333",
                 fontWeight: "bold",
@@ -65,6 +76,7 @@ const Footer: React.FC = () => {
             </a>
             <a
               href="#"
+              className="font-bold sm:text-sm"
               style={{
                 color: "#333",
                 fontWeight: "bold",

@@ -8,7 +8,7 @@ const ContactUsPage: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="container mx-auto py-8 flex-grow">
-        <div className="max-w-screen-lg mx-auto">
+        <div className="max-w-screen-lg mx-auto" style={{ width: "90%", margin: "auto" }}>
           <h1 className="text-3xl font-semibold mb-4">Contact Us</h1>
           <p className="text-lg mb-4">
             You can reach out to us through the following channels:
