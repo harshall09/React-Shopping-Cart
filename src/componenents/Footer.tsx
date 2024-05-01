@@ -5,6 +5,7 @@ import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa"; // Import i
 const Footer: React.FC = () => {
   return (
     <footer
+      className="sm:flex sm:justify-between sm:items-center"
       style={{ backgroundColor: "#e6e6e6", color: "#333", padding: "1rem" }}
     >
       <div className="container mx-auto flex justify-between items-center">

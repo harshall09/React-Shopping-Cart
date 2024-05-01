@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
     0
   );
   return (
-    <nav style={{ backgroundColor: "#172a3a", color: "white", padding: "1rem" }} className="md:px-12">
+    <nav style={{ backgroundColor: "#172a3a", color: "white", padding: "1rem" }} className="sm:flex sm:justify-between sm:items-center">
       <div className="container mx-auto flex justify-between items-center ">
         <Link to="/" className="flex items-center">
           <img src="/shopify.png" alt="Logo" className="h-10 mr-2 drop-shadow-xl" />
