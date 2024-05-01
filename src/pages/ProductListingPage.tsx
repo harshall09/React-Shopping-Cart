@@ -33,9 +33,9 @@ const ProductListingPage: React.FC = () => {
     : Object.values(categoryProducts).flat();
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen" >
       <Navbar />
-      <div className="px-4 py-2 flex justify-center space-x-4">
+      <div className="px-4 py-2 flex justify-center space-x-4 flex-grow">
         <span className="mx-3 ml-5 font-medium"> Categories: </span>
         {Object.keys(categoryProducts).map((categoryName) => (
           <button
@@ -50,9 +50,19 @@ const ProductListingPage: React.FC = () => {
             {categoryName}
           </button>
         ))}
+        <button
+          onClick={() => setSelectedCategory(null)} // Reset selected category to display all products
+          className={`w-fit min-w-fit h-8 px-5 py-2 flex items-center text-sm border rounded-3xl cursor-pointer transition-all duration-300${
+            selectedCategory === null
+              ? "border-blue-500 bg-blue-500 text-white"
+              : "border-gray-500 bg-white text-gray-900 hover:bg-gray-200"
+          }`}
+        >
+          All
+        </button>
       </div>
-      <div className="flex justify-center items-center mt-8 flex-grow">
-        <div className="flex flex-wrap justify-center">
+      <div className="flex items-center mt-8 flex-grow" style={{ width: "90%", margin: "auto" }}>
+        <div className="flex flex-wrap">
           {displayProducts.map((product) => (
             <ProductCard key={product.id} product={product} cart={[]} />
           ))}
