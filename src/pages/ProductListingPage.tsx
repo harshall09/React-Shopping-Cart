@@ -62,10 +62,10 @@ const ProductListingPage: React.FC = () => {
         </button>
       </div>
       <div
-        className="flex justify-center items-center mt-8 flex-grow mx-4 my-4"
+        className="flex items-center mt-8 flex-grow mx-4 my-4"
         style={{ width: "90%", margin: "auto" }}
       >
-        <div className="flex flex-wrap justify-center sm:justify-start">
+        <div className="flex flex-wrap  justify-center sm:justify-start">
           {displayProducts.map((product) => (
             <div key={product.id} className="mx-4 my-4">
               <ProductCard product={product} cart={[]} />
