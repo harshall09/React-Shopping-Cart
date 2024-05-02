@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
       </div>
       {/* Hamburger menu content for small screens */}
       {isOpen && (
-        <div className="sm:hidden absolute top-16 right-0 z-10 bg-gray-900 w-48 py-2 mt-2">
+        <div className="sm:hidden absolute top-16 left-0 z-10 bg-gray-900 w-48 py-2 mt-3 h-full">
           <Link
             to="/"
             className="block text-white font-bold py-2 px-4 hover:bg-gray-800"
