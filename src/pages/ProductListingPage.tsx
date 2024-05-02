@@ -52,7 +52,7 @@ const ProductListingPage: React.FC = () => {
         ))}
         <button
           onClick={() => setSelectedCategory(null)} // Reset selected category to display all products
-          className={`w-fit min-w-fit h-8 px-5 py-2 flex items-center text-sm border rounded-3xl cursor-pointer transition-all duration-300${
+          className={`w-fit min-w-fit h-8 px-5 py-2 flex items-center text-sm border rounded-3xl cursor-pointer transition-all duration-300 ${
             selectedCategory === null
               ? "border-blue-500 bg-blue-500 text-white"
               : "border-gray-500 bg-white text-gray-900 hover:bg-gray-200"
