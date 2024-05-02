@@ -36,44 +36,42 @@ const Navbar: React.FC = () => {
           <Hamburger toggled={isOpen} toggle={handleToggleMenu} />
         </div>
       </div>
-      {/* Navigation links */}
-      <div
-        className={
-          "flex flex-col sm:flex-row sm:items-center sm:space-x-4 " +
-          (isOpen ? "block" : "hidden sm:block")
-        }
-      >
-        <Link
-          to="/"
-          className="text-white font-bold mr-4 hover:text-gray-300"
-          style={{ textDecoration: "none" }}
-        >
-          Home
-        </Link>
-        <Link
-          to="/productlisting"
-          className="text-white font-bold mr-4 hover:text-gray-300"
-          style={{ textDecoration: "none" }}
-        >
-          Products
-        </Link>
-        <Link
-          to="/about"
-          className="text-white font-bold mr-4 hover:text-gray-300"
-          style={{ textDecoration: "none" }}
-        >
-          About Us
-        </Link>
-        <Link
-          to="/contact"
-          className="text-white font-bold mr-4 hover:text-gray-300"
-          style={{ textDecoration: "none" }}
-        >
-          Contact Us
-        </Link>
-      </div>
       {/* Cart and Heart icons */}
-      <div className="flex items-center">
+      <div className="flex items-center ml-auto">
+        {" "}
+        {/* This line aligns the cart and heart icons to the right */}
+        <div className="hidden sm:flex items-center mr-4">
+          {" "}
+          {/* This line displays the navigation links beside the cart and heart icons on screens above 640px */}
+          <Link
+            to="/"
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/productlisting"
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
+          >
+            Products
+          </Link>
+          <Link
+            to="/about"
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
+          >
+            About Us
+          </Link>
+          <Link
+            to="/contact"
+            className="text-white font-bold mr-4 hover:text-gray-300"
+            style={{ textDecoration: "none" }}
+          >
+            Contact Us
+          </Link>
+        </div>
         <Link
           to="/cart"
           className="relative text-white font-bold mr-4 hover:text-gray-300"
@@ -97,6 +95,39 @@ const Navbar: React.FC = () => {
           <FontAwesomeIcon icon={faHeart} />
         </Link>
       </div>
+      {/* Hamburger menu content for small screens */}
+      {isOpen && (
+        <div className="sm:hidden absolute top-16 right-0 z-10 bg-gray-900 w-48 py-2 mt-2">
+          <Link
+            to="/"
+            className="block text-white font-bold py-2 px-4 hover:bg-gray-800"
+            style={{ textDecoration: "none" }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/productlisting"
+            className="block text-white font-bold py-2 px-4 hover:bg-gray-800"
+            style={{ textDecoration: "none" }}
+          >
+            Products
+          </Link>
+          <Link
+            to="/about"
+            className="block text-white font-bold py-2 px-4 hover:bg-gray-800"
+            style={{ textDecoration: "none" }}
+          >
+            About Us
+          </Link>
+          <Link
+            to="/contact"
+            className="block text-white font-bold py-2 px-4 hover:bg-gray-800"
+            style={{ textDecoration: "none" }}
+          >
+            Contact Us
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };

@@ -6,7 +6,6 @@ import { RootState } from "../states/store";
 import { removeFromCart } from "../states/reducers/cartSlice";
 import { useNavigate } from "react-router-dom";
 
-
 const CartPage: React.FC = () => {
   const cart = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
@@ -31,7 +30,10 @@ const CartPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="container mx-auto py-8 flex-grow" style={{ width: "90%", margin: "auto" }}>
+      <div
+        className="container mx-auto py-8 flex-grow"
+        style={{ width: "90%", margin: "auto" }}
+      >
         <div className="max-w-screen-lg mx-auto">
           <h1 className="font-bold text-3xl mb-4">Your Bag</h1>
           {cart.length === 0 ? (
@@ -66,7 +68,9 @@ const CartPage: React.FC = () => {
                     {cart.map((item) => (
                       <tr key={item.id}>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{item.name}</div>
+                          <div className="text-sm text-gray-900">
+                            {item.name}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">
