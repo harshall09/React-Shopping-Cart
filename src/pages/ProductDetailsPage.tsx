@@ -66,13 +66,18 @@ const ProductDetailsPage: React.FC = () => {
               className="w-full rounded-lg shadow-lg mb-4 max-w-xs"
             />
           </div>
-
-          {/* Product Information */}
-          <div className="flex flex-col justify-center">
-            <h1 className="text-3xl font-semibold mb-4">{product.name}</h1>
-            <p className="text-lg mb-4">Price: ₹{product.price.toFixed(2)}</p>
-            <p className="text-gray-700 mb-4">{product.description}</p>
-            <div className="flex items-center mt-4">
+          {/* // Product Information */}
+          <div className="flex flex-col justify-center items-center md:items-start">
+            <h1 className="text-3xl font-semibold mb-4 text-center md:text-left">
+              {product.name}
+            </h1>
+            <p className="text-lg mb-4 text-center md:text-left">
+              Price: ₹{product.price.toFixed(2)}
+            </p>
+            <p className="text-gray-700 mb-4 text-center md:text-left">
+              {product.description}
+            </p>
+            <div className="flex items-center justify-center md:justify-start mt-4">
               <button
                 className="bg-blue-500 text-white px-5 py-3 rounded-md mr-3 hover:bg-blue-600"
                 onClick={handleAddToCart}
