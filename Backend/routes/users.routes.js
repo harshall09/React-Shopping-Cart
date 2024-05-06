@@ -1,8 +1,18 @@
 // routes/users.routes.js
 import express from "express";
 import usersController from "../controllers/users.controller.js";
+import authMiddleware from "../middleware/auth.middleware.js";
 
 const router = express.Router();
+
+// Route for user registration
+router.post("/register", usersController.registerUser);
+
+// Route for user login
+router.post("/login", usersController.loginUser);
+
+// Route to get all users (protected)
+router.get("/", authMiddleware.verifyToken, usersController.getAllUsers);
 
 // Route to get all users
 router.get("/getAllUsers", usersController.getAllUsers);
