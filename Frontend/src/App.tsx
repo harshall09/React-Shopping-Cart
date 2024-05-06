@@ -7,6 +7,8 @@ import WishlistPage from "./pages/Wishlist";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProductListingPage from "./pages/ProductListingPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   // const cart: Product[] = [];
@@ -21,6 +23,8 @@ function App() {
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/productlisting" element={<ProductListingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </Router>
   );

@@ -1,23 +1,23 @@
+// app.js
 import express from "express";
-import mongoose from "mongoose";
-import { mongoURI } from "./config/mongodb.config.js";
+import cors from "cors";
+import routes from "./routes/index.routes.js";
+import usersRoutes from "./routes/users.routes.js";
 
 const app = express();
-const PORT = process.env.port || 3000;
 
-//connect to MongoDB
-mongoose
-  .connect(mongoURI, {})
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log("Error connecting to MongoDB:", err.message);
-  });
+// Enable CORS
+app.use(cors());
+app.options("*", cors());
 
-//Middleware
+// Serve static files
+app.use(express.static("src/public/attachments"));
+
+// Parse JSON request body
 app.use(express.json());
 
-app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
-});
+// Mount routes
+app.use("/v1", routes);
+app.use("/users", usersRoutes);
+
+export default app;
