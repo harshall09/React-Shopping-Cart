@@ -14,25 +14,30 @@ import ProductListingPage from "./pages/ProductListingPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   // const cart: Product[] = [];
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactUsPage />} />
-        <Route path="/wishlist" element={<WishlistPage />} />
-        <Route path="/product/:id" element={<ProductDetailsPage />} />
-        <Route path="/productlisting" element={<ProductListingPage />} />
-        <Route path="/homepage" element={<HomePage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactUsPage />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/product/:id" element={<ProductDetailsPage />} />
+          <Route path="/productlisting" element={<ProductListingPage />} />
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
+      <ToastContainer />
+    </div>
   );
 };
 
