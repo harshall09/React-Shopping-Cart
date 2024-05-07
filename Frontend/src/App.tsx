@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import AboutPage from "./pages/About";
@@ -10,12 +15,12 @@ import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 
-function App() {
+const App: React.FC = () => {
   // const cart: Product[] = [];
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -23,11 +28,12 @@ function App() {
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/productlisting" element={<ProductListingPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

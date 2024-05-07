@@ -10,7 +10,7 @@ import {
 import { RootState } from "../states/store";
 import { Product } from "../types";
 
-interface ProductCardProps {
+interface ProductCardProps {  
   product: Product;
   onAddToCart?: (product: Product) => void; // Made onAddToCart optional
   cart: Product[];
