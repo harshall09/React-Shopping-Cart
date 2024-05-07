@@ -19,5 +19,6 @@ app.use(express.json());
 // Mount routes
 app.use("/v1", routes);
 app.use("/users", usersRoutes);
+app.use("/products", productRoutes);
 
 export default app;
