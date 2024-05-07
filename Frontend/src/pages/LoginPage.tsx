@@ -18,11 +18,11 @@ const LoginPage: React.FC = () => {
         email,
         password,
       });
-      console.log("Login Response:", response.data);
+      //console.log("Login Response:", response.data);
       const data = response.data;
 
       if (response.status === 200) {
-        console.log("Login successful!");
+        //console.log("Login successful!");
         localStorage.setItem("tokan", data.token);
         navigate("/homepage");
       } else {
