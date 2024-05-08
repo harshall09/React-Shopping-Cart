@@ -68,7 +68,7 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   getAllProducts,
   getProductById,
   createProduct,
