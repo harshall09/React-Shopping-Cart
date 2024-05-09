@@ -1,6 +1,5 @@
 import Product from "../models/products.model.js";
 
-// Get all products
 const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -10,7 +9,6 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-// Get a single product by ID
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -23,16 +21,15 @@ const getProductById = async (req, res) => {
   }
 };
 
-// Create a new product
 const createProduct = async (req, res) => {
-  const product = new Product({
-    name: req.body.name,
-    description: req.body.description,
-    image: req.body.image,
-    price: req.body.price,
-  });
-
   try {
+    const product = new Product({
+      name: req.body.name,
+      description: req.body.description,
+      image: req.file ? req.file.path : null,
+      price: req.body.price,
+    });
+
     const newProduct = await product.save();
     res.status(201).json(newProduct);
   } catch (error) {
@@ -40,7 +37,6 @@ const createProduct = async (req, res) => {
   }
 };
 
-// Update a product by ID
 const updateProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -55,7 +51,6 @@ const updateProduct = async (req, res) => {
   }
 };
 
-// Delete a product by ID
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);

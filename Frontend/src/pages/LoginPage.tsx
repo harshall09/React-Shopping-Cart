@@ -1,6 +1,6 @@
 // src/LoginPage.tsx
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -22,9 +22,9 @@ const LoginPage: React.FC = () => {
       const data = response.data;
 
       if (response.status === 200) {
-        //console.log("Login successful!");
+        console.log("Login successful!");
         localStorage.setItem("tokan", data.token);
-        navigate("/homepage");
+        navigate("/");
       } else {
         console.error("Login failed:", data.error);
         toast.error("Invalid email or password");
@@ -71,11 +71,11 @@ const LoginPage: React.FC = () => {
             Login
           </button>
           <p className="mt-4 text-gray-600">
-              Not registered?{" "}
-              <Link to="/signup" className="text-blue-500">
-                Register now
-              </Link>
-            </p>
+            Not registered?{" "}
+            <Link to="/signup" className="text-blue-500">
+              Register now
+            </Link>
+          </p>
         </form>
       </div>
     </div>

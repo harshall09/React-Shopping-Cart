@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProduct(e.target.value); //update the search query state
   };
-
+  
   const handleAddToCart = (product: Product) => {
     dispatch(addToCart(product));
   };

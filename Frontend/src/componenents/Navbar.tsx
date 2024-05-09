@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faHeart,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../states/store";
@@ -70,6 +74,15 @@ const Navbar: React.FC = () => {
             style={{ textDecoration: "none" }}
           >
             Contact Us
+          </Link>
+        </div>
+        <div>
+          <Link
+            to="/loginpage"
+            className="block text-white font-bold py-2 px-4 hover:bg-gray-800"
+            style={{ textDecoration: "none" }}
+          >
+            <FontAwesomeIcon icon={faUser} />
           </Link>
         </div>
         <Link
