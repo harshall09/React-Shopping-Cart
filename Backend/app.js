@@ -12,7 +12,7 @@ app.use(cors());
 app.options("*", cors());
 
 // Serve static files
-app.use(express.static("src/public/attachments"));
+app.use(express.static("/Images"));
 
 // Parse JSON request body
 app.use(express.json());

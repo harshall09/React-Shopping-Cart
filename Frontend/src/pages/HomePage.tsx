@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Navbar from "../componenents/Navbar";
 import Footer from "../componenents/Footer";
 import ImageSlider from "../componenents/ImageSlider";
 import ProductSlider from "../componenents/ProductSlider";
-import ProductsData from "../data/products.json";
+//import ProductsData from "../data/products.json";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
 import { addToCart } from "../states/reducers/cartSlice";
@@ -15,19 +16,33 @@ const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.items); //Accessing cart state
   const [searchProduct, setSearchProduct] = useState<string>("");
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get<Product[]>(
+          "http://localhost:3000/products/getallproducts"
+        );
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
   //State for search product
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProduct(e.target.value); //update the search query state
   };
-  
+
   const handleAddToCart = (product: Product) => {
     dispatch(addToCart(product));
   };
 
-  //Filter popular products based on search product query
-  const filteredProducts = ProductsData.flatMap(
-    (category) => category.products
-  ).filter((product) =>
+ 
+  // Filter products based on search product query
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchProduct.toLowerCase())
   );
   // Data for image slider
@@ -52,12 +67,10 @@ const HomePage: React.FC = () => {
           ></input>
           <ProductSlider
             popularProducts={
-              searchProduct
-                ? filteredProducts
-                : ProductsData.flatMap((category) => category.products)
+              searchProduct ? filteredProducts : products
             }
             onAddToCart={handleAddToCart}
-            cart={cart} // Passed the cart state to ProductSlider
+            cart={cart}
           />
         </div>
       </div>

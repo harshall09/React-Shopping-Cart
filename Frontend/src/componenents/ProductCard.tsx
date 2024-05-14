@@ -10,13 +10,14 @@ import {
 import { RootState } from "../states/store";
 import { Product } from "../types";
 
-interface ProductCardProps {  
+interface ProductCardProps {
   product: Product;
   onAddToCart?: (product: Product) => void; // Made onAddToCart optional
   cart: Product[];
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  console.log("Product:", product);
   const cart = useSelector((state: RootState) => state.cart.items);
   const cartItem = cart.find((item) => item.id === product.id);
   const dispatch = useDispatch();
@@ -44,7 +45,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden w-64">
       <Link to={`/product/${product.id}`} className="cursor-pointer block">
         <img
-          src={product.image}
+          //  src={`http://localhost:3000/products/images/mobile1.jpg`}
+          src={`http://localhost:3000/products/Images/${product.image}`}
           alt={product.name}
           className="h-64 w-full object-cover hover:scale-110"
         />

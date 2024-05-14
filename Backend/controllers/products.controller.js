@@ -21,13 +21,24 @@ const getProductById = async (req, res) => {
   }
 };
 
+const getProductsByCategory = async (req, res) => {
+  const { categoryName } = req.params;
+  try {
+    const products = await Product.find({ categoryName: categoryName });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const createProduct = async (req, res) => {
   try {
     const product = new Product({
       name: req.body.name,
       description: req.body.description,
-      image: req.file ? req.file.path : null,
+      image: req.file.filename,
       price: req.body.price,
+      categoryName: req.body.categoryName,
     });
 
     const newProduct = await product.save();
@@ -66,6 +77,7 @@ const deleteProduct = async (req, res) => {
 export default {
   getAllProducts,
   getProductById,
+  getProductsByCategory,
   createProduct,
   updateProduct,
   deleteProduct,
