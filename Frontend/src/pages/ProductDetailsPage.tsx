@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Navbar from "../componenents/Navbar";
 import Footer from "../componenents/Footer";
-import productsData from "../data/products.json";
 import { useParams } from "react-router-dom";
 import { Product } from "../types";
 import { useDispatch } from "react-redux";
@@ -10,24 +10,30 @@ import { addToWishlist } from "../states/reducers/wishlistSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartOutline } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+//import productsData from "../data/products.json";
 
 const ProductDetailsPage: React.FC = () => {
   const { id = "" } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeTab, setActiveTab] = useState("description");
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Find the product with the matching ID from the products data
-    const selectedProduct = productsData
-      .flatMap((category) => category.products)
-      .find((product) => product.id === parseInt(id));
-    if (selectedProduct) {
-      setProduct(selectedProduct);
-    } else {
-      console.error(`Product with ID ${id} not found`);
-    }
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get<Product>(
+          `http://localhost:3000/products/getproduct/${id}`
+        );
+        setProduct(response.data);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
+      }
+    };
+    fetchProduct();
   }, [id]);
 
   const handleFavoriteClick = () => {
@@ -49,6 +55,10 @@ const ProductDetailsPage: React.FC = () => {
     setActiveTab(tab);
   };
 
+  if (loading) {
+    return <div>Loading...</div>; // Render loading indicator
+  }
+
   if (!product) {
     return <div>No product found</div>;
   }
@@ -61,7 +71,7 @@ const ProductDetailsPage: React.FC = () => {
           {/* Product Image */}
           <div className="flex justify-center">
             <img
-              src={product.image}
+              src={`http://localhost:3000/products/Images/${product.image}`}
               alt={product.name}
               className="w-full rounded-lg shadow-lg mb-4 max-w-xs"
             />

@@ -18,7 +18,7 @@ const SignupPage: React.FC = () => {
           password,
         }
       );
-      console.log("Signup Response:", response);
+      //console.log("Signup Response:", response);
       if (response.status === 201) {
         console.log("User Registered");
         toast.success("User Registered");

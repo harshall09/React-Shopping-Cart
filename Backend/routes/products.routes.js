@@ -24,6 +24,9 @@ router.get(
   productsController.getProductsByCategory
 );
 
+// Route to fetch category names
+router.get("/getcategorynames", productsController.getAllCategoryNames);
+
 // Route to create a new product
 router.post(
   "/createproduct",

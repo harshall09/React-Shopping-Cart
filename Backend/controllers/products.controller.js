@@ -31,6 +31,15 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
+const getAllCategoryNames = async (req, res) => {
+  try {
+    const categories = await Product.distinct("categoryName");
+    res.json(categories);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const createProduct = async (req, res) => {
   try {
     const product = new Product({
@@ -78,6 +87,7 @@ export default {
   getAllProducts,
   getProductById,
   getProductsByCategory,
+  getAllCategoryNames,
   createProduct,
   updateProduct,
   deleteProduct,

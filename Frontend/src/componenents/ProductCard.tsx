@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden w-64">
-      <Link to={`/product/${product.id}`} className="cursor-pointer block">
+      <Link to={`/product/${product._id}`} className="cursor-pointer block">
         <img
           //  src={`http://localhost:3000/products/images/mobile1.jpg`}
           src={`http://localhost:3000/products/Images/${product.image}`}
