@@ -1,5 +1,9 @@
 // middleware/auth.middleware.js
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import bcrypt from "bcryptjs"; //for password hashing
+import User from "../models/users.model.js";
+dotenv.config();
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
@@ -14,7 +18,11 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
+const comparePassword = async (password, hashedPassword) => {
+  return await bcrypt.compare(password, hashedPassword);
+};
 
 export default {
   verifyToken,
+  comparePassword,
 };
