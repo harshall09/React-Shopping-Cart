@@ -1,10 +1,13 @@
-// controllers/users.controller.js
 import User from "../models/users.model.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const { comparePassword } = authMiddleware;
+
 // Controller method for user registration and creation
 const createUser = async (req, res) => {
   try {
@@ -32,7 +35,9 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     res.json({ message: "Login successful", token });
   } catch (error) {
@@ -71,11 +76,15 @@ const updateUser = async (req, res) => {
   try {
     const userId = req.params.userId;
     const { username, email, password } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { username, email, password },
-      { new: true }
-    );
+
+    const updatedData = { username, email };
+    if (password) {
+      updatedData.password = await bcrypt.hash(password, 10);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedData, {
+      new: true,
+    });
 
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
@@ -97,7 +106,7 @@ const deleteUser = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.json(deletedUser);
+    res.json({ message: "User deleted successfully", deletedUser });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
