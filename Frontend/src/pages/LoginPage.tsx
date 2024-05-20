@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
 
       if (response.status === 200) {
         console.log("Login successful!");
-        localStorage.setItem("tokan", data.token);
+        localStorage.setItem("token", data.token);
         navigate("/");
       } else {
         console.error("Login failed:", data.error);

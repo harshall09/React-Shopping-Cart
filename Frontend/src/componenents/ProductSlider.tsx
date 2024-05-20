@@ -10,8 +10,8 @@ interface ProductSliderProps {
 
 const ProductSlider: React.FC<ProductSliderProps> = ({
   popularProducts,
-  onAddToCart,
-  cart,
+  // onAddToCart,
+  // cart,
 }) => {
   return (
     <div className="mb-8">
@@ -21,8 +21,8 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
           <div key={product._id} className="mx-4 my-4">
             <ProductCard
               product={product}
-              onAddToCart={onAddToCart}
-              cart={cart}
+              //onAddToCart={onAddToCart}
+              //cart={cart}
             />
           </div>
         ))}

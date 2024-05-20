@@ -36,9 +36,9 @@ const HomePage: React.FC = () => {
     setSearchProduct(e.target.value); //update the search query state
   };
 
-  const handleAddToCart = (product: Product) => {
-    dispatch(addToCart(product));
-  };
+  // const handleAddToCart = (product: Product) => {
+  //   dispatch(addToCart(product));
+  // };
 
  
   // Filter products based on search product query

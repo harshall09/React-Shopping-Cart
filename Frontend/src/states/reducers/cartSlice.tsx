@@ -1,52 +1,67 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../types";
+import { createSlice, createAsyncThunk, AsyncThunkAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { CartItem } from "../../types";
 
-interface CartItem extends Product {
-  quantity: number;
+interface AddToCartPayload {
+  userId: string;
+  productId: string;
 }
 
-interface CartState {
-  items: CartItem[];
-}
-
-const initialState: CartState = {
-  items: [],
+// Define the return type of the async thunk actions
+type ThunkApiConfig = {
+  rejectValue: string;
 };
+
+export const addToCart = createAsyncThunk(
+  "cart/addToCart",
+  async ({ userId, productId }: AddToCartPayload) => {
+    try {
+      await axios.post(`http://localhost:3000/cart/addToCart`, {
+        userId,
+        productId,
+      });
+      return { userId, productId };
+    } catch (error:any) {
+      throw error.response.data;
+    }
+  }
+) as unknown as AsyncThunkAction<{ userId: string; productId: string; }, AddToCartPayload, {}>;
+
+export const getUserCart = createAsyncThunk(
+  "cart/getUserCart",
+  async (userId: string) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/cart/userCart/${userId}`);
+      return response.data;
+    } catch (error:any) {
+      throw error.response.data;
+    }
+  }
+) as unknown as AsyncThunkAction<any, string, {}>;
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState,
-  reducers: {
-    addToCart: (state, action: PayloadAction<Product>) => {
-      const { id } = action.payload;
-      const existingProduct = state.items.find((product) => product.id === id);
-      if (existingProduct) {
-        existingProduct.quantity += 1;
-      } else {
-        state.items.push({ ...action.payload, quantity: 1 });
-      }
-    },
-    removeFromCart: (state, action: PayloadAction<number>) => {
-      const index = state.items.findIndex((item) => item.id === action.payload);
-      if (index !== -1) {
-        state.items.splice(index, 1);
-      }
-    },
-    increaseQuantity: (state, action: PayloadAction<number>) => {
-      const product = state.items.find((item) => item.id === action.payload);
-      if (product && product.quantity !== undefined) {
-        product.quantity += 1;
-      }
-    },
-    decreaseQuantity: (state, action: PayloadAction<number>) => {
-      const product = state.items.find((item) => item.id === action.payload);
-      if (product && product.quantity !== undefined && product.quantity > 1) {
-        product.quantity -= 1;
-      }
-    },
+  initialState: {
+    items: [] as CartItem[],
+    status: "idle" as "idle" | "loading" | "succeeded" | "failed",
+    error: null as string | null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getUserCart.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload.items;
+      })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
+      })
+      .addCase(getUserCart.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
+      });
   },
 });
 
-export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } =
-  cartSlice.actions;
 export default cartSlice.reducer;
