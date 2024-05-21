@@ -3,7 +3,7 @@ import Navbar from "../componenents/Navbar";
 import Footer from "../componenents/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../states/store";
-import { Product } from "../types";
+import { Product } from "../../types";
 import { removeFromWishlist } from "../states/reducers/wishlistSlice";
 
 const WishlistPage: React.FC = () => {

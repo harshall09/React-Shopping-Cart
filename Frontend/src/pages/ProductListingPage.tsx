@@ -3,7 +3,7 @@ import Navbar from "../componenents/Navbar";
 import Footer from "../componenents/Footer";
 import axios from "axios";
 import ProductCard from "../componenents/ProductCard";
-import { Product } from "../types";
+import { Product } from "../../types";
 
 const ProductListingPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);

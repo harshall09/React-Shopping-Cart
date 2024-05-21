@@ -3,7 +3,7 @@ import axios from "axios";
 import Navbar from "../componenents/Navbar";
 import Footer from "../componenents/Footer";
 import { useParams } from "react-router-dom";
-import { Product } from "../types";
+import { Product } from "../../types";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../states/reducers/cartSlice";
 import { addToWishlist } from "../states/reducers/wishlistSlice";

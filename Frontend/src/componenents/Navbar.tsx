@@ -17,6 +17,10 @@ const Navbar: React.FC = () => {
     (total, item) => total + item.quantity,
     0
   );
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.user.token !== null
+  );
+  const user = useSelector((state: RootState) => state.user.user);
 
   const handleToggleMenu = () => {
     setIsOpen(!isOpen); // Toggle the menu open/close state
@@ -76,15 +80,16 @@ const Navbar: React.FC = () => {
             Contact Us
           </Link>
         </div>
-        <div>
-          <Link
-            to="/loginpage"
-            className="block text-white font-bold py-2 px-4 hover:bg-gray-800"
-            style={{ textDecoration: "none" }}
-          >
+        {isAuthenticated ? (
+          <div className="flex items-center mr-4">
+            <p className="text-white font-bold mr-2">Welcome,{user?.username}</p>
+            {/* <Link to="/logout" className="text-white font-bold hover:text-gray-300" style={{ textDecoration: "none" }}>Logout</Link> */}
+          </div>
+        ) : (
+          <Link to="/loginpage" className="block text-white font-bold py-2 px-4 hover:bg-gray-800" style={{ textDecoration: "none" }}>
             <FontAwesomeIcon icon={faUser} />
           </Link>
-        </div>
+        )}
         <Link
           to="/cart"
           className="relative text-white font-bold mr-4 hover:text-gray-300"
