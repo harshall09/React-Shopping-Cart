@@ -147,7 +147,7 @@ const decreaseCartQty = async (req, res) => {
 // Get user's cart
 const getUserCart = async (req, res) => {
   try {
-    const { userId } = req.user._id;
+    const { userId } = req;
 
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {

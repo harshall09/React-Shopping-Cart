@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../states/hooks.tsx';
+import { useAppDispatch, useAppSelector } from '../states/hooks';
 import { loginUser } from '../states/reducers/userSlice';
 import { toast } from 'react-toastify';
 
@@ -8,13 +8,14 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
-  const { status, error, token } = useAppSelector(state => state.user);
+  const { status, error } = useAppSelector(state => state.user);
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
+
   useEffect(() => {
     if (status === 'succeeded') {
       toast.success('Login successful');

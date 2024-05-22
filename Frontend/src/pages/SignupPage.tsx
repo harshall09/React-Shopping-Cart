@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../states/hooks.tsx';
+import { useAppDispatch, useAppSelector } from '../states/hooks';
 import { registerUser } from '../states/reducers/userSlice';
 
 const RegisterPage: React.FC = () => {
@@ -9,7 +9,7 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const dispatch = useAppDispatch();
-  const { status, error, token } = useAppSelector(state => state.user);
+  const { status, error } = useAppSelector(state => state.user);
   const navigate = useNavigate();
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,7 +25,7 @@ const RegisterPage: React.FC = () => {
         navigate('/loginpage');
       }, 3000); // Redirect to login page after 3 seconds
     }
-  }, [status, history]);
+  }, [status, navigate]);
 
   return (
     <div className="flex h-screen justify-center items-center bg-gray-100">

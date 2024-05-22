@@ -1,14 +1,20 @@
-// src/types.ts
 export interface Product {
   _id: string;
   name: string;
-  price: number;
-  image: string;
   description: string;
+  image: string;
+  price: number;
+  categoryName: string;
+}
+
+export interface User {
+  _id: string;
+  username: string;
+  email: string;
 }
 
 export interface CartItem {
-  productId: string; // assuming this is the ID, modify if it's different
+  productId: string;
   name: string;
   price: number;
   image: string;
@@ -16,8 +22,7 @@ export interface CartItem {
   quantity: number;
 }
 
-export interface User {
-  _id: string;
-  username: string;
-  email: string;
+export interface Cart {
+  user: string;
+  items: CartItem[];
 }
