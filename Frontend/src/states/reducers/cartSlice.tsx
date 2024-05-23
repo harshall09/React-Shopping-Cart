@@ -1,12 +1,8 @@
-// src/states/reducers/cartSlice.ts
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { CartItem } from '../../../types';
+import { CartItem, AddToCartPayload } from '../../../types';
 import { RootState } from '../store';
-
-interface AddToCartPayload {
-  productId: string;
-}
 
 interface CartState {
   items: CartItem[];
@@ -22,13 +18,13 @@ const initialState: CartState = {
 
 export const addToCart = createAsyncThunk<CartItem, AddToCartPayload, { state: RootState }>(
   'cart/addToCart',
-  async ({ productId }, { getState }) => {
+  async ({ productId, userId }, { getState }) => {
     const state = getState();
     const token = state.user.token;
 
     const response = await axios.post<CartItem>(
       'http://localhost:3000/cart/addToCart',
-      { productId },
+      { productId, userId },
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return response.data;

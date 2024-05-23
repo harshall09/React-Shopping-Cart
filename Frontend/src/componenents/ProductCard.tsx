@@ -1,8 +1,6 @@
-// src/components/ProductCard.tsx
-
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../states/hooks';
-import { addToCart } from '../states/reducers/cartSlice';
+import { addToCart, removeFromCart } from '../states/reducers/cartSlice';
 import { Product } from '../../types';
 
 interface ProductCardProps {
@@ -13,15 +11,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.items);
   const user = useAppSelector((state) => state.user.user);
-  const cartItem = cart.find((item) => item.productId === product._id);
+  const cartItem = Array.isArray(cart) ? cart.find((item) => item.productId === product._id) : null;
 
   const handleAddToCart = () => {
     if (!user) {
       alert('Please log in to add items to your cart.');
       return;
     }
-    dispatch(addToCart({ productId: product._id }));
+    dispatch(addToCart({ productId: product._id, userId: user._id }));
+    console.log('Product added to cart:', product);
     alert('Product added to cart');
+  };
+
+  const handleRemoveFromCart = () => {
+    if (!user) {
+      alert('Please log in to remove items from your cart.');
+      return;
+    }
+    dispatch(removeFromCart(product._id));
+    console.log('Product removed from cart:', product);
+    alert('Product removed from cart');
   };
 
   return (
@@ -43,14 +52,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex items-center">
             <button
               className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2 hover:bg-blue-600"
-              onClick={() => {}}
+              onClick={handleRemoveFromCart}
             >
               -
             </button>
             <span>{cartItem.quantity}</span>
             <button
               className="bg-blue-500 text-white px-2 py-1 rounded-md ml-2 hover:bg-blue-600"
-              onClick={() => {}}
+              onClick={handleAddToCart}
             >
               +
             </button>

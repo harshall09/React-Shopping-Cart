@@ -143,11 +143,10 @@ const decreaseCartQty = async (req, res) => {
       .json({ error: "Failed to decrease product quantity in cart" });
   }
 };
-
-// Get user's cart
+//controller to get Users cart
 const getUserCart = async (req, res) => {
   try {
-    const { userId } = req;
+    const userId = req.userId; // Use req.userId instead of req.user._id
 
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {

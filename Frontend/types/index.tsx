@@ -13,6 +13,11 @@ export interface User {
   email: string;
 }
 
+export interface AddToCartPayload {
+  productId: string;
+  userId: string;
+}
+
 export interface CartItem {
   productId: string;
   name: string;

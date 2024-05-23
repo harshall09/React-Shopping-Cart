@@ -1,11 +1,10 @@
-// src/pages/CartPage.tsx
-
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../states/hooks';
 import { fetchCart, removeFromCart } from '../states/reducers/cartSlice';
 import Navbar from '../componenents/Navbar';
 import Footer from '../componenents/Footer';
 import { useNavigate } from 'react-router-dom';
+import { CartItem } from '../../types';
 
 const CartPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -14,12 +13,17 @@ const CartPage: React.FC = () => {
   const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
+    console.log("fetchcart");
+    
     if (user) {
       dispatch(fetchCart());
     }
   }, [user, dispatch]);
 
-  const grandTotalPrice = cart.reduce(
+  // Ensure cart is an array
+  const cartItems: CartItem[] = Array.isArray(cart) ? cart : [];
+
+  const grandTotalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
@@ -38,7 +42,7 @@ const CartPage: React.FC = () => {
       <div className="container mx-auto py-8 flex-grow" style={{ width: '90%', margin: 'auto' }}>
         <div className="max-w-screen-lg mx-auto">
           <h1 className="font-bold text-3xl mb-4">Your Bag</h1>
-          {cart.length === 0 ? (
+          {cartItems.length === 0 ? (
             <p>Your Bag is empty.</p>
           ) : (
             <>
@@ -55,7 +59,7 @@ const CartPage: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {cart.map((item) => (
+                    {cartItems.map((item) => (
                       <tr key={item.productId}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">{item.name}</div>

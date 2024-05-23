@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../../../src/axiosConfig'; // Import axios instance with interceptor
 import { User } from '../../../types';
 import { fetchCart } from './cartSlice';
-import { AppDispatch } from '../store';
+import { AppDispatch, RootState } from '../store';
 
 interface UserState {
   user: User | null;
@@ -13,7 +13,7 @@ interface UserState {
 
 const initialState: UserState = {
   user: null,
-  token: null,
+  token: localStorage.getItem('token'), // Retrieve token from localStorage
   status: 'idle',
   error: null,
 };
@@ -26,20 +26,54 @@ interface LoginResponse {
 export const loginUser = createAsyncThunk<LoginResponse, { email: string; password: string }, { dispatch: AppDispatch }>(
   'user/loginUser',
   async (credentials, { dispatch }) => {
-    const response = await axios.post<LoginResponse>('http://localhost:3000/users/login', credentials);
-    dispatch(fetchCart());
-    return response.data;
+    try {
+      const response = await axios.post<LoginResponse>('http://localhost:3000/users/login', credentials);
+      const { user, token } = response.data;
+      localStorage.setItem('token', token); // Store token in localStorage
+      dispatch(fetchCart());
+      return response.data;
+    } catch (error) {
+      // Handle error
+      throw error;
+    }
   }
 );
 
 export const registerUser = createAsyncThunk<LoginResponse, { username: string; email: string; password: string }, { dispatch: AppDispatch }>(
   'user/registerUser',
   async (userData, { dispatch }) => {
-    const response = await axios.post<LoginResponse>('http://localhost:3000/users/createUser', userData);
-    dispatch(fetchCart());
-    return response.data;
+    try {
+      const response = await axios.post<LoginResponse>('http://localhost:3000/users/createUser', userData);
+      const { user, token } = response.data;
+      localStorage.setItem('token', token); // Store token in localStorage
+      dispatch(fetchCart());
+      return response.data;
+    } catch (error) {
+      // Handle error
+      throw error;
+    }
   }
 );
+
+export const fetchUser = createAsyncThunk<User, void, { state: RootState }>(
+  'user/fetchUser',
+  async (_, { getState }) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await axios.get<User>('http://localhost:3000/users/userCart', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+      } catch (error) {
+        throw new Error('Failed to fetch user');
+      }
+    } else {
+      throw new Error('No token found');
+    }
+  }
+);
+
 
 const userSlice = createSlice({
   name: 'user',
@@ -55,6 +89,7 @@ const userSlice = createSlice({
       state.token = null;
       state.status = 'idle';
       state.error = null;
+      localStorage.removeItem('token'); // Remove token from localStorage
     },
   },
   extraReducers: (builder) => {
@@ -82,6 +117,17 @@ const userSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message || 'Failed to register';
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || 'Failed to fetch user';
       });
   },
 });
