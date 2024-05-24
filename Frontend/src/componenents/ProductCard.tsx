@@ -1,5 +1,3 @@
-// ProductCard.tsx
-
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../states/hooks';
 import { addToCart } from '../states/reducers/cartSlice';
@@ -12,16 +10,22 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-console.log("logged in user---",user);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!user) {
       alert('Please log in to add items to your cart.');
       return;
     }
-    dispatch(addToCart({ productId: product._id, userId: user.user }));
-    console.log('Product added to cart:', product);
-    alert('Product added to cart');
+
+    try {
+      console.log('Dispatching addToCart action for product:', product._id);
+      await dispatch(addToCart({ productId: product._id, userId: user.user }));
+      console.log('Product added to cart:', product);
+      alert('Product added to cart');
+    } catch (error) {
+      console.error('Failed to add product to cart:', error);
+      alert('Failed to add product to cart');
+    }
   };
 
   return (

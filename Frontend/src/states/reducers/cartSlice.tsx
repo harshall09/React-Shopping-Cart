@@ -15,6 +15,7 @@ const initialState: CartState = {
   error: null,
 };
 
+// Async thunk for adding to cart
 export const addToCart = createAsyncThunk<
   CartItem,
   AddToCartPayload,
@@ -31,6 +32,7 @@ export const addToCart = createAsyncThunk<
   return response.data;
 });
 
+// Async thunk for fetching the cart
 export const fetchCart = createAsyncThunk<
   CartItem[],
   void,
@@ -40,7 +42,6 @@ export const fetchCart = createAsyncThunk<
     const state = getState();
     const token = state.user.token;
     let userId = state.user.user?.user;
-    //console.log("userid------------", userId);
 
     if (!userId) {
       // Fetch the user details to get the userId
@@ -49,7 +50,6 @@ export const fetchCart = createAsyncThunk<
         { headers: { Authorization: `Bearer ${token}` } }
       );
       userId = userResponse.data.user;
-      console.log("userid", userId);
     }
 
     const response = await axios.get<CartItem[]>(
@@ -62,6 +62,7 @@ export const fetchCart = createAsyncThunk<
   }
 });
 
+// Async thunk for removing from cart
 export const removeFromCart = createAsyncThunk<
   void,
   string,
@@ -79,6 +80,7 @@ export const removeFromCart = createAsyncThunk<
   );
 });
 
+// Create the cart slice
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -90,9 +92,16 @@ const cartSlice = createSlice({
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.status = "succeeded";
+
+        // Ensure items is an array before performing array operations
+        if (!Array.isArray(state.items)) {
+          state.items = [];
+        }
+
         const itemIndex = state.items.findIndex(
           (item) => item.productId === action.payload.productId
         );
+
         if (itemIndex >= 0) {
           state.items[itemIndex].quantity += 1;
         } else {
@@ -107,8 +116,10 @@ const cartSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
+        //console.log(action.payload,'<<<<<<<');
+        const{items} = action.payload
         state.status = "succeeded";
-        state.items = action.payload;
+        state.items = items;
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.status = "failed";
@@ -119,6 +130,12 @@ const cartSlice = createSlice({
       })
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.status = "succeeded";
+
+        // Ensure items is an array before performing array operations
+        if (!Array.isArray(state.items)) {
+          state.items = [];
+        }
+
         state.items = state.items.filter(
           (item) => item.productId !== action.meta.arg
         );

@@ -37,8 +37,9 @@ export const loginUser = createAsyncThunk<
     );
     const { user, token } = response.data;
     localStorage.setItem("token", token); // Store token in localStorage
-    dispatch(fetchCart());
+   
     dispatch(fetchUser()); // Dispatch fetchUser action upon successful login
+    dispatch(fetchCart());
     return response.data;
   } catch (error) {
     // Handle error

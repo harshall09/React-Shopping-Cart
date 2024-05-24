@@ -4,13 +4,12 @@ import Navbar from "../componenents/Navbar";
 import Footer from "../componenents/Footer";
 import { useParams } from "react-router-dom";
 import { Product } from "../../types";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../states/hooks";
 import { addToCart } from "../states/reducers/cartSlice";
 import { addToWishlist } from "../states/reducers/wishlistSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartOutline } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-//import productsData from "../data/products.json";
 
 const ProductDetailsPage: React.FC = () => {
   const { id = "" } = useParams<{ id: string }>();
@@ -18,7 +17,8 @@ const ProductDetailsPage: React.FC = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeTab, setActiveTab] = useState("description");
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -30,7 +30,7 @@ const ProductDetailsPage: React.FC = () => {
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
     fetchProduct();
@@ -38,16 +38,21 @@ const ProductDetailsPage: React.FC = () => {
 
   const handleFavoriteClick = () => {
     if (product) {
-      dispatch(addToWishlist(product)); // Dispatch the addToWishlist action with the selected product
+      dispatch(addToWishlist(product));
+      setIsFavorite(!isFavorite);
       alert("Product added to wishlist");
     }
-    setIsFavorite(!isFavorite);
   };
 
   const handleAddToCart = () => {
+    if (!user) {
+      alert("Please log in to add items to your cart.");
+      return;
+    }
+
     if (product) {
-      dispatch(addToCart(product)); // Dispatch the addToCart action with the selected product
-      alert("Product added to cart!"); // Show an alert or any other UI feedback
+      dispatch(addToCart({ productId: product._id, userId: user.user }));
+      alert("Product added to cart!");
     }
   };
 
@@ -56,7 +61,7 @@ const ProductDetailsPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Render loading indicator
+    return <div>Loading...</div>;
   }
 
   if (!product) {
@@ -68,7 +73,6 @@ const ProductDetailsPage: React.FC = () => {
       <Navbar />
       <div className="container mx-auto mt-8 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Product Image */}
           <div className="flex justify-center">
             <img
               src={`http://localhost:3000/products/Images/${product.image}`}
@@ -76,7 +80,6 @@ const ProductDetailsPage: React.FC = () => {
               className="w-full rounded-lg shadow-lg mb-4 max-w-xs"
             />
           </div>
-          {/* // Product Information */}
           <div className="flex flex-col justify-center items-center md:items-start">
             <h1 className="text-3xl font-semibold mb-4 text-center md:text-left">
               {product.name}
@@ -104,8 +107,6 @@ const ProductDetailsPage: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Tab buttons and content */}
         <div className="container mx-auto">
           <div className="flex justify-center mt-8">
             <button
@@ -125,8 +126,6 @@ const ProductDetailsPage: React.FC = () => {
               Specifications
             </button>
           </div>
-
-          {/* Tab content */}
           <div className="mt-4 flex justify-center">
             {activeTab === "description" && (
               <div>
