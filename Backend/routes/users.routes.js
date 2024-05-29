@@ -1,4 +1,3 @@
-// routes/users.routes.js
 import express from "express";
 import usersController from "../controllers/users.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
@@ -25,5 +24,12 @@ router.put("/updateUser/:userId", usersController.updateUser);
 
 // Route to delete a user
 router.delete("/deleteUser/:userId", usersController.deleteUser);
+
+// Route to fetch user data based on token
+router.get(
+  "/fetchUser",
+  authMiddleware.verifyToken,
+  usersController.fetchUserByToken
+);
 
 export default router;

@@ -1,57 +1,92 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "../../../types";
 import { RootState } from "../store";
+import axios from "../../axiosConfig";
 
 interface WishlistState {
   items: Product[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
 }
 
 const initialState: WishlistState = {
-  items: loadWishlistState(),
+  items: [],
+  status: "idle",
+  error: null,
 };
 
-// Load wishlist state from local storage
-function loadWishlistState(): Product[] {
-  try {
-    const serializedState = localStorage.getItem("wishlist");
-    if (serializedState === null) {
-      return [];
+// Adjust the full URL path for wishlist endpoints
+export const fetchWishlistItems = createAsyncThunk<Product[], void>(
+  "wishlist/fetchWishlistItems",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("/api/wishlist");
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || error.message);
     }
-    return JSON.parse(serializedState);
-  } catch (error) {
-    console.error("Error loading wishlist state from local storage:", error);
-    return [];
   }
-}
+);
 
-// Save wishlist state to local storage
-function saveWishlistState(state: Product[]) {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("wishlist", serializedState);
-  } catch (error) {
-    console.error("Error saving wishlist state to local storage:", error);
+export const addProductToWishlist = createAsyncThunk<Product, string>(
+  "wishlist/addProductToWishlist",
+  async (productId, { rejectWithValue }) => {
+    try {
+      const response = await axios.post("/api/wishlist", { productId });
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
-}
+);
+
+export const removeProductFromWishlist = createAsyncThunk<string, string>(
+  "wishlist/removeProductFromWishlist",
+  async (productId, { rejectWithValue }) => {
+    try {
+      await axios.delete(`/api/wishlist/${productId}`);
+      return productId;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
 
 const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
-  reducers: {
-    addToWishlist: (state, action: PayloadAction<Product>) => {
-      state.items.push(action.payload);
-      saveWishlistState(state.items); // Saved updated wishlist state to local storage
-    },
-    removeFromWishlist: (state, action: PayloadAction<number>) => {
-      const index = state.items.findIndex((item) => item.id === action.payload);
-      if (index !== -1) {
-        state.items.splice(index, 1);
-        saveWishlistState(state.items); // Save updated wishlist state to local storage
-      }
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchWishlistItems.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchWishlistItems.fulfilled, (state, action: PayloadAction<Product[]>) => {
+        state.status = "succeeded";
+        state.items = action.payload;
+      })
+      .addCase(fetchWishlistItems.rejected, (state, action: PayloadAction<any>) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(addProductToWishlist.fulfilled, (state, action: PayloadAction<Product>) => {
+        state.items.push(action.payload);
+      })
+      .addCase(removeProductFromWishlist.fulfilled, (state, action: PayloadAction<string>) => {
+        state.items = state.items.filter((item) => item._id !== action.payload);
+      })
+      .addCase(addProductToWishlist.rejected, (state, action: PayloadAction<any>) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(removeProductFromWishlist.rejected, (state, action: PayloadAction<any>) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
   },
 });
 
-export const { addToWishlist, removeFromWishlist } = wishlistSlice.actions;
 export const selectWishlist = (state: RootState) => state.wishlist.items;
+export const selectWishlistStatus = (state: RootState) => state.wishlist.status;
+export const selectWishlistError = (state: RootState) => state.wishlist.error;
 export default wishlistSlice.reducer;

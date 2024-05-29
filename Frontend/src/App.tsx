@@ -16,12 +16,15 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from "./componenents/Navbar";
+import Footer from "./componenents/Footer";
 
 const App: React.FC = () => {
   // const cart: Product[] = [];
   return (
     <div>
       <Router>
+        <Navbar/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/loginpage" element={<LoginPage />} />
@@ -35,6 +38,7 @@ const App: React.FC = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
+        <Footer/>
       </Router>
       <ToastContainer />
     </div>

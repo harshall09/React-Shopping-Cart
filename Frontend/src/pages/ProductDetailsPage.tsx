@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from "../componenents/Navbar";
-import Footer from "../componenents/Footer";
 import { useParams } from "react-router-dom";
 import { Product } from "../../types";
 import { useAppDispatch, useAppSelector } from "../states/hooks";
 import { addToCart } from "../states/reducers/cartSlice";
-import { addToWishlist } from "../states/reducers/wishlistSlice";
+//import { addToWishlist } from "../states/reducers/wishlistSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartOutline } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -70,7 +68,7 @@ const ProductDetailsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container mx-auto mt-8 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex justify-center">
@@ -146,7 +144,7 @@ const ProductDetailsPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

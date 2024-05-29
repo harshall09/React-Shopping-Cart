@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../componenents/Navbar";
-import Footer from "../componenents/Footer";
 import axios from "axios";
 import ProductCard from "../componenents/ProductCard";
 import { Product } from "../../types";
@@ -54,7 +52,7 @@ const ProductListingPage: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="px-4 py-2 flex justify-center space-x-4 flex-wrap">
         <span className="mx-3 ml-5 font-medium">Categories:</span>
         {categoryNames.map((categoryName) => (
@@ -99,7 +97,7 @@ const ProductListingPage: React.FC = () => {
           )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

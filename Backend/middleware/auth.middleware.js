@@ -28,7 +28,7 @@ const verifyToken = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Decoded Token:", decoded); // Log the decoded token
 
-    req.userId = decoded.userId; // Set userId in the request object
+    req.user = decoded; // Set user object in the request
     next();
   } catch (err) {
     console.error("Token verification error:", err);

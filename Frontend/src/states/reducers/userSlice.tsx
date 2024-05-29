@@ -37,7 +37,7 @@ export const loginUser = createAsyncThunk<
     );
     const { user, token } = response.data;
     localStorage.setItem("token", token); // Store token in localStorage
-   
+
     dispatch(fetchUser()); // Dispatch fetchUser action upon successful login
     dispatch(fetchCart());
     return response.data;
@@ -73,7 +73,7 @@ export const fetchUser = createAsyncThunk<User, void, { state: RootState }>(
     try {
       const state = getState();
       const token = localStorage.getItem("token");
-      
+
       if (!token) {
         throw new Error("Token not available");
       }
@@ -83,7 +83,7 @@ export const fetchUser = createAsyncThunk<User, void, { state: RootState }>(
         { headers: { Authorization: `Bearer ${token}` } }
       );
       return response.data;
-    } catch (error:any) {
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }

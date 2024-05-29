@@ -1,11 +1,9 @@
 import React from "react";
-import Navbar from "../componenents/Navbar";
-import Footer from "../componenents/Footer";
 
 const CheckoutPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <div
         className="container mx-auto py-8 flex-grow"
         style={{ width: "90%", margin: "auto" }}
@@ -135,7 +133,7 @@ const CheckoutPage: React.FC = () => {
           </div>
         </form>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -40,7 +40,7 @@ const Homepage: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container mx-auto py-8 flex-grow" style={{ width: "90%", margin: "auto" }}>
         <ImageSlider images={imageSliderImages} />
         <div className="mt-8">
@@ -54,7 +54,7 @@ const Homepage: React.FC = () => {
           <ProductSlider popularProducts={searchProduct ? filteredProducts : products} />
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

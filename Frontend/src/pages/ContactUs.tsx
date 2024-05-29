@@ -1,12 +1,9 @@
-// ContactUsPage.tsx
 import React from "react";
-import Navbar from "../componenents/Navbar";
-import Footer from "../componenents/Footer";
 
 const ContactUsPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container mx-auto py-8 flex-grow">
         <div className="max-w-screen-lg mx-auto" style={{ width: "90%", margin: "auto" }}>
           <h1 className="text-3xl font-semibold mb-4">Contact Us</h1>
@@ -30,7 +27,7 @@ const ContactUsPage: React.FC = () => {
           </p>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

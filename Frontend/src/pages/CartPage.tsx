@@ -1,26 +1,24 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../states/hooks';
 import { fetchCart, removeFromCart } from '../states/reducers/cartSlice';
-import Navbar from '../componenents/Navbar';
-import Footer from '../componenents/Footer';
 
 const CartPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart);
   const fetchStatus = useAppSelector((state) => state.cart.status);
   const fetchError = useAppSelector((state) => state.cart.error);
-  
+
   useEffect(() => {
     dispatch(fetchCart());
   }, [dispatch]);
-  
-  // const handleRemove = (productId: string) => {
-  //   dispatch(removeFromCart({ productId, userId: cart.user }));
-  // };
+
+  const handleRemove = (productId: string) => {
+    dispatch(removeFromCart(productId));
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container mx-auto py-8 flex-grow" style={{ width: '90%', margin: 'auto' }}>
         <div className="max-w-screen-lg mx-auto">
           <h1 className="font-bold text-3xl mb-4">Your Bag</h1>
@@ -52,7 +50,7 @@ const CartPage: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap">{item.quantity}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <button
-                        //onClick={() => handleRemove(item.productId)} 
+                        onClick={() => handleRemove(item.productId)}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Remove
@@ -65,7 +63,7 @@ const CartPage: React.FC = () => {
           )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

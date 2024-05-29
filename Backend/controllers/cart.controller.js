@@ -5,7 +5,7 @@ import Product from "../models/products.model.js";
 const addToCart = async (req, res) => {
   try {
     const { productId } = req.body;
-    const { userId } = req;
+    const { userId } = req.user; // Use req.user.userId
 
     const product = await Product.findById(productId);
     if (!product) {
@@ -58,7 +58,7 @@ const addToCart = async (req, res) => {
 const removeFromCart = async (req, res) => {
   try {
     const { productId } = req.body;
-    const { userId } = req;
+    const { userId } = req.user; // Use req.user.userId
 
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {
@@ -82,7 +82,7 @@ const removeFromCart = async (req, res) => {
 const increaseCartQty = async (req, res) => {
   try {
     const { productId } = req.body;
-    const { userId } = req;
+    const { userId } = req.user; // Use req.user.userId
 
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {
@@ -113,7 +113,7 @@ const increaseCartQty = async (req, res) => {
 const decreaseCartQty = async (req, res) => {
   try {
     const { productId } = req.body;
-    const { userId } = req;
+    const { userId } = req.user; // Use req.user.userId
 
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {
@@ -143,10 +143,11 @@ const decreaseCartQty = async (req, res) => {
       .json({ error: "Failed to decrease product quantity in cart" });
   }
 };
-//controller to get Users cart
+
+// Controller to get user's cart
 const getUserCart = async (req, res) => {
   try {
-    const userId = req.userId; // Use req.userId instead of req.user._id
+    const { userId } = req.user; // Use req.user.userId
 
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {

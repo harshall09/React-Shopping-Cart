@@ -26,13 +26,15 @@ const createUser = async (req, res) => {
 
     // Save the user to the database
     await newUser.save();
-
+    res.status(201).json(newUser);
     // Respond with the created user (excluding the password)
-    const { password: _, ...userWithoutPassword } = newUser.toObject();
-    res.status(201).json(userWithoutPassword);
+    // console.log(newUser.toObject());
+    // const { password: _, ...userWithoutPassword } = newUser.toObject();
+    // res.status(201).json(userWithoutPassword);
   } catch (error) {
+    //console.log(error, "dsjahdkjasdhjk");
     if (error.code === 11000) {
-      // Handle duplicate key error (e.g., unique constraint on username or email)
+      // (11000 is for Handle duplicate key error--unique username or password)
       res.status(400).json({ error: "Username or email already exists" });
     } else {
       res.status(500).json({ error: "Internal Server Error" });
@@ -68,7 +70,6 @@ const loginUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 // Controller method to get all users
 const getAllUsers = async (req, res) => {
   try {
@@ -145,6 +146,23 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// Controller method to fetch user data based on token
+const fetchUserByToken = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error("Error fetching user by token:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 export default {
   createUser,
   loginUser,
@@ -152,4 +170,5 @@ export default {
   getUserById,
   updateUser,
   deleteUser,
+  fetchUserByToken,
 };
