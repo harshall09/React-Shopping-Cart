@@ -103,7 +103,7 @@ const userSlice = createSlice({
       state.token = null;
       state.status = "idle";
       state.error = null;
-      localStorage.removeItem("token"); // Remove token from localStorage
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
