@@ -4,7 +4,11 @@ import { useParams } from "react-router-dom";
 import { Product } from "../../types";
 import { useAppDispatch, useAppSelector } from "../states/hooks";
 import { addToCart } from "../states/reducers/cartSlice";
-//import { addToWishlist } from "../states/reducers/wishlistSlice";
+import {
+  addProductToWishlist,
+  removeProductFromWishlist,
+  selectWishlist,
+} from "../states/reducers/wishlistSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartOutline } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -12,32 +16,41 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 const ProductDetailsPage: React.FC = () => {
   const { id = "" } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [activeTab, setActiveTab] = useState("description");
   const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
+  const wishlistItems = useAppSelector(selectWishlist);
+  const isFavorite = wishlistItems.some((item) => item._id === id);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProductDetails = async () => {
       try {
         const response = await axios.get<Product>(
           `http://localhost:3000/products/getproduct/${id}`
         );
         setProduct(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching product:", error);
-      } finally {
         setLoading(false);
       }
     };
-    fetchProduct();
+
+    fetchProductDetails();
   }, [id]);
 
-  const handleFavoriteClick = () => {
-    if (product) {
-      dispatch(addToWishlist(product));
-      setIsFavorite(!isFavorite);
+  const handleFavoriteClick = async () => {
+    if (!user) {
+      alert("Please log in to manage your wishlist.");
+      return;
+    }
+
+    if (isFavorite) {
+      await dispatch(removeProductFromWishlist(id));
+      alert("Product removed from wishlist");
+    } else {
+      await dispatch(addProductToWishlist(id));
       alert("Product added to wishlist");
     }
   };
@@ -68,7 +81,6 @@ const ProductDetailsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* <Navbar /> */}
       <div className="container mx-auto mt-8 flex-grow">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex justify-center">
@@ -134,17 +146,12 @@ const ProductDetailsPage: React.FC = () => {
             {activeTab === "specifications" && (
               <div>
                 <h2 className="text-xl font-semibold mb-2">Specifications</h2>
-                <ul>
-                  <li className="text-gray-700">Color:</li>
-                  <li className="text-gray-700">Size:</li>
-                  <li className="text-gray-700">Weight:</li>
-                </ul>
+                <ul>{/* product specifications here */}</ul>
               </div>
             )}
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
     </div>
   );
 };

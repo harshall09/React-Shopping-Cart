@@ -1,8 +1,6 @@
 import Wishlist from "../models/wishlist.model.js";
 import Product from "../models/products.model.js";
 
-console.log("Wishlist model", Wishlist);
-console.log("Product model", Product);
 // Controller method to add a product to the wishlist
 const addToWishlist = async (req, res) => {
   try {
@@ -15,6 +13,17 @@ const addToWishlist = async (req, res) => {
         .json({ error: "userId and productId are required" });
     }
 
+    // Check if the product is already in the wishlist for this user
+    const existingItem = await Wishlist.findOne({ userId, productId });
+
+    if (existingItem) {
+      // If the product is already in the wishlist, send a message back
+      return res
+        .status(409)
+        .json({ message: "Product is already in the wishlist" });
+    }
+
+    // If the product is not in the wishlist, add it
     const wishlistItem = new Wishlist({ userId, productId });
     await wishlistItem.save();
     res.status(201).json({ message: "Product added to wishlist successfully" });
@@ -60,12 +69,20 @@ const getWishlistItems = async (req, res) => {
       path: "productId",
       select: "name description image price categoryName",
     });
-    console.log("Wishlist items:", wishlistItems);
 
-    const products = wishlistItems.map((item) => item.productId);
-    console.log("Products:", products);
+    // Map the wishlist items to match the frontend expectations
+    const formattedItems = wishlistItems.map((item) => ({
+      _id: item.productId._id,
+      name: item.productId.name,
+      description: item.productId.description,
+      image: item.productId.image,
+      price: item.productId.price,
+      categoryName: item.productId.categoryName,
+    }));
 
-    res.json(products);
+    console.log("Formatted Wishlist items:", formattedItems);
+
+    res.json(formattedItems);
   } catch (error) {
     console.error("Error fetching wishlist items:", error);
     res.status(500).json({ error: "Internal Server Error" });

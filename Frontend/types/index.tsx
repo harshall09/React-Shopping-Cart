@@ -5,13 +5,14 @@ export interface Product {
   image: string;
   price: number;
   categoryName: string;
+  message:string;
 }
 
 export interface User {
   user: string;
   username: string;
   email: string;
-}
+} 
 
 export interface AddToCartPayload {
   productId: string;

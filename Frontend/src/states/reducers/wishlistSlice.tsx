@@ -15,36 +15,39 @@ const initialState: WishlistState = {
   error: null,
 };
 
-// Adjust the full URL path for wishlist endpoints
 export const fetchWishlistItems = createAsyncThunk<Product[], void>(
   "wishlist/fetchWishlistItems",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/wishlist");
+      const response = await axios.get("http://localhost:3000/api/wishlist");
+      console.log("Fetched wishlist items:", response.data);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
-
 export const addProductToWishlist = createAsyncThunk<Product, string>(
   "wishlist/addProductToWishlist",
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/wishlist", { productId });
+      const response = await axios.post(
+        "http://localhost:3000/api/wishlist/add",
+        { productId }
+      );
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
-
 export const removeProductFromWishlist = createAsyncThunk<string, string>(
   "wishlist/removeProductFromWishlist",
   async (productId, { rejectWithValue }) => {
     try {
-      await axios.delete(`/api/wishlist/${productId}`);
+      await axios.delete(
+        `http://localhost:3000/api/wishlist/remove/${productId}`
+      );
       return productId;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);
@@ -61,28 +64,48 @@ const wishlistSlice = createSlice({
       .addCase(fetchWishlistItems.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchWishlistItems.fulfilled, (state, action: PayloadAction<Product[]>) => {
-        state.status = "succeeded";
-        state.items = action.payload;
-      })
-      .addCase(fetchWishlistItems.rejected, (state, action: PayloadAction<any>) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(addProductToWishlist.fulfilled, (state, action: PayloadAction<Product>) => {
-        state.items.push(action.payload);
-      })
-      .addCase(removeProductFromWishlist.fulfilled, (state, action: PayloadAction<string>) => {
-        state.items = state.items.filter((item) => item._id !== action.payload);
-      })
-      .addCase(addProductToWishlist.rejected, (state, action: PayloadAction<any>) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(removeProductFromWishlist.rejected, (state, action: PayloadAction<any>) => {
-        state.status = "failed";
-        state.error = action.payload;
-      });
+      .addCase(
+        fetchWishlistItems.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.status = "succeeded";
+          state.items = action.payload;
+        }
+      )
+      .addCase(
+        fetchWishlistItems.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.status = "failed";
+          state.error = action.payload;
+        }
+      )
+      .addCase(
+        addProductToWishlist.fulfilled,
+        (state, action: PayloadAction<Product>) => {
+          state.items.push(action.payload);
+        }
+      )
+      .addCase(
+        removeProductFromWishlist.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          state.items = state.items.filter(
+            (item) => item._id !== action.payload
+          );
+        }
+      )
+      .addCase(
+        addProductToWishlist.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.status = "failed";
+          state.error = action.payload;
+        }
+      )
+      .addCase(
+        removeProductFromWishlist.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.status = "failed";
+          state.error = action.payload;
+        }
+      );
   },
 });
 
