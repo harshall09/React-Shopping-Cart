@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
     try {
       console.log("Dispatching addToCart action for product:", product._id);
-      await dispatch(addToCart({ productId: product._id, userId: user._id }));
+      await dispatch(addToCart({ productId: product._id, userId: user.user }));
       console.log("Product added to cart:", product);
       alert("Product added to cart");
     } catch (error) {
