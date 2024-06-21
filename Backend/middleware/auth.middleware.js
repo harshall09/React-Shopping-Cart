@@ -5,11 +5,12 @@ import User from "../models/users.model.js";
 
 dotenv.config();
 
-console.log("JWT_SECRET:", process.env.JWT_SECRET); // Adding to check the secret key
+console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
 const verifyToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
+    console.log("Authorization header", authHeader);
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       console.log("Authorization token missing or malformed");
       return res

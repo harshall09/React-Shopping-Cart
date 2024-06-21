@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/addToCart", authMiddleware.verifyToken, cartController.addToCart);
 
 //Route to remove product from the cart
-router.post(
+router.delete(
   "/removeFromCart",
   authMiddleware.verifyToken,
   cartController.removeFromCart
